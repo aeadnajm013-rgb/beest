@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap">
 <style>
-/* شێوە: شینی سەرنجڕاکێش و پاکی هاروون سەنتەر */
 :root{
   --bg:#F0F4F8; --card:#FFFFFF; --line:#DCE4ED; --ink:#0D2137; --muted:#5A6E85;
   --blue:#0051FF; --blue-dark:#0A3663; --blue-light:#E6ECFF;
@@ -63,6 +62,12 @@ html[lang="en"] body{font-family:var(--f-en)}
 .state.bad{color:var(--bad);background:rgba(239,68,68,.1)} .state.bad i{background:var(--bad)}
 .stamp{font-family:var(--f-en);font-size:.72rem;color:var(--muted)}
 
+/* بەشی ئاگاداری و کاتژمێر */
+.warning-box{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:20px;padding:18px;display:grid;gap:12px;text-align:right;box-shadow:0 8px 30px rgba(0,0,0,.03)}
+.warning-title{color:var(--bad);font-weight:900;font-size:1rem;display:flex;align-items:center;gap:6px}
+.warning-text{font-size:.85rem;color:var(--ink);line-height:1.7}
+.timer-btn{background:var(--bg);border:1px solid var(--line);color:var(--muted);padding:12px;border-radius:12px;font-weight:800;font-size:.9rem;text-align:center}
+
 /* بەشی زانیارییەکان */
 .sheet{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.04)}
 .sheet-h{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.95rem;color:var(--blue-dark)}
@@ -85,6 +90,9 @@ html[lang="en"] body{font-family:var(--f-en)}
 .copy{font:inherit;font-size:.75rem;font-weight:700;border:0;color:#fff;background:var(--blue);border-radius:8px;padding:6px 12px;cursor:pointer;transition:background .2s}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
+
+.action-btn{display:block;width:100%;font:inherit;font-weight:800;font-size:.95rem;text-align:center;background:linear-gradient(135deg,#0051FF,#0A3663);color:#fff;border:0;padding:14px;border-radius:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,81,255,.25);transition:opacity .2s}
+.action-btn:active{opacity:.9}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
 .msg b{color:var(--bad)}
@@ -113,34 +121,41 @@ html[lang="en"] body{font-family:var(--f-en)}
     </div>
   </header>
 
-  <!-- کارتی سەرەکی - شێوازی هاروون سەنتەر -->
+  <!-- کارتی سەرەکی -->
   <section class="hero">
     <div class="apple-box">
       <svg viewBox="0 0 170 170">
-        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39zM118.82 32.55c0 7.82-2.79 15.04-8.38 21.64-5.59 6.6-12.63 10.36-21.13 11.28-.22-1.74-.33-3.37-.33-4.89 0-7.83 2.94-15.14 8.83-21.93 5.89-6.79 13.08-10.51 21.57-11.16.29 1.63.44 3.32.44 5.06z"/>
+        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
       </svg>
     </div>
     <h1>HAROON</h1>
     <div class="sub-title">Center</div>
-    <div class="apple-id-tag">
-      <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39zM118.82 32.55c0 7.82-2.79 15.04-8.38 21.64-5.59 6.6-12.63 10.36-21.13 11.28-.22-1.74-.33-3.37-.33-4.89 0-7.83 2.94-15.14 8.83-21.93 5.89-6.79 13.08-10.51 21.57-11.16.29 1.63.44 3.32.44 5.06z"/></svg>
-      Apple ID
-    </div>
+    <div class="apple-id-tag">Apple ID</div>
     <div class="hero-foot">
       <span class="state" id="state"><i></i><span id="stateTx"></span></span>
       <span class="stamp" id="time"></span>
     </div>
   </section>
 
-  <!-- زانیارییەکان -->
-  <section class="sheet">
-    <div class="sheet-h"><b data-t="title"></b><span>CARD INFO</span></div>
+  <!-- بەشی ئاگاداری و کاتژمێر (سەرەتادا دەردەکەوێت) -->
+  <section class="warning-box" id="warningSection">
+    <div class="warning-title">⚠️ ئاگادارییەکی گرنگ</div>
+    <div class="warning-text">
+      تکایە بەهیچ شێوەیەک ئەم Apple ID له‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
+      تکایە کاتێک Apple ID داخل کرد ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.
+    </div>
+    <div class="timer-btn" id="timerBtn">چاوەڕوان بە (5)...</div>
+  </section>
+
+  <!-- زانیارییەکان (دوای 5 چرکە دەردەکەون) -->
+  <section class="sheet" id="dataSection" style="display:none;">
+    <div class="sheet-h"><b data-t="title">زانیاری کارت</b><span>CARD INFO</span></div>
     <div id="box"></div>
   </section>
 
   <footer class="foot">
     <span>© <b>HAROON Center · Apple ID</b></span>
-    <span data-t="thanks"></span>
+    <span data-t="thanks">سوپاس بۆ متمانەکەت</span>
   </footer>
 </div>
 
@@ -171,6 +186,25 @@ function pickHeader(h){
 
 const code = (new URLSearchParams(location.search).get('c') || '').trim();
 const box = document.getElementById('box');
+const warningSection = document.getElementById('warningSection');
+const dataSection = document.getElementById('dataSection');
+const timerBtn = document.getElementById('timerBtn');
+
+let timeLeft = 5;
+function startCountdown() {
+  const interval = setInterval(() => {
+    timeLeft--;
+    if (timeLeft > 0) {
+      timerBtn.textContent = `چاوەڕوان بە (${timeLeft})...`;
+    } else {
+      clearInterval(interval);
+      warningSection.style.display = 'none';
+      dataSection.style.display = 'grid';
+      loadData();
+    }
+  }, 1000);
+}
+
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
 const ICONS = [
@@ -209,7 +243,7 @@ function render(){
     main.forEach((i, n) => {
       const h = pickHeader(d.headers[i]);
       html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
-              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+            (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
     });
     html += '</dl>';
   }
@@ -225,6 +259,10 @@ function render(){
     });
     html += '</div>';
   }
+  
+  // دوگمەی وەرگرتنی کۆدی دڵنیایی
+  html += '<button class="action-btn" type="button">وەرگرتنی کۆدی دڵنیایی</button>';
+
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
   box.querySelectorAll('.copy').forEach(b => b.onclick = () => {
     const done = () => { b.textContent = T[lang].copied; b.classList.add('done'); setTimeout(() => { b.textContent = T[lang].copy; b.classList.remove('done'); }, 1600); };
@@ -244,10 +282,9 @@ function stamp(){
   const n = new Date(), p = x => String(x).padStart(2, '0');
   document.getElementById('time').textContent = p(n.getDate()) + '/' + p(n.getMonth() + 1) + '/' + n.getFullYear() + ' · ' + p(n.getHours()) + ':' + p(n.getMinutes());
 }
-function load(){
-  render();
+
+function loadData(){
   if (!code) { state = { kind: 'error', msg: 'invalid' }; render(); return; }
-  history.replaceState(null, '', location.pathname);
   fetch(API + '?action=scan&code=' + encodeURIComponent(code))
     .then(r => r.json())
     .then(d => {
@@ -257,7 +294,10 @@ function load(){
     })
     .catch(() => { state = { kind: 'error', msg: 'net' }; render(); });
 }
-load();
+
+// دەستپێکردن بە کاتژمێری ژماردنی پێچەوانە
+history.replaceState(null, '', location.pathname);
+startCountdown();
 </script>
 </body>
 </html>
