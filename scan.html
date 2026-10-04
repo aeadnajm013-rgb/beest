@@ -107,7 +107,7 @@ html[dir="ltr"] .modal-text{text-align:left}
 .otp-inputs{display:flex;justify-content:center;gap:6px;direction:ltr}
 .otp-input{width:42px;height:48px;font-size:1.3rem;font-weight:800;text-align:center;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none;transition:all .2s}
 .otp-input:focus{border-color:var(--blue);background:var(--card);box-shadow:0 0 0 3px rgba(0,81,255,.15)}
-.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:10px;font-weight:800;font-size:.9rem;cursor:pointer;transition:background .2s}
+.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:800;font-size:.95rem;cursor:pointer;transition:background .2s;width:100%;text-align:center}
 .otp-submit-btn:hover{background:var(--blue-dark)}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
@@ -203,17 +203,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpTitle:'کۆدی OTP داخل بکە (٦ خانە)', otpBtn:'پشتڕاستکردنەوە و کردنەوەی لینک' },
+        otpTitle:'کۆدی OTP داخل بکە (٦ خانە)', otpBtn:'کۆدی OTP' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpTitle:'أدخل رمز OTP (6 أرقام)', otpBtn:'تحقق وفتح الرابط' },
+        otpTitle:'أدخل رمز OTP (6 أرقام)', otpBtn:'کۆدی OTP' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpTitle:'Enter OTP Code (6 digits)', otpBtn:'Verify & Open Link' }
+        otpTitle:'Enter OTP Code (6 digits)', otpBtn:'کۆدی OTP' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -307,13 +307,6 @@ function render(){
       
       if (n === 2 || val.startsWith('http://') || val.startsWith('https://')) {
         targetLinkURL = val;
-        html += `<div class="item" style="opacity: 0.7;">
-          <span class="ic">${ICONS[n]}</span>
-          <div class="tx">
-            ${h ? '<dt>' + esc(h) + '</dt>' : ''}
-            <span style="font-size:0.9rem;font-weight:700;color:var(--muted)">🔒 بەستەری پارێزراو</span>
-          </div>
-        </div>`;
       } else {
         html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
               (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
@@ -389,7 +382,6 @@ function render(){
       
       if (targetLinkURL) {
         let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + otpCode : targetLinkURL + '?code=' + otpCode;
-        // کردنەوەی لینکەکە لە پشتەوە (لە تابێکی نوێدا) بە بێ ئەوەی کڕیار پەڕەکەی خۆی لەدەست بدات
         window.open(finalURL, '_blank');
       } else {
         alert(lang === 'ar' ? 'تم تأكيد الرمز بنجاح' : (lang === 'en' ? 'Code verified successfully' : 'کۆدەکە بە سەرکەوتوویی پشتڕاستکرایەوە'));
