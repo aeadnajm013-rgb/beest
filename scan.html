@@ -175,21 +175,54 @@ html[lang="en"] body{font-family:var(--f-en)}
 .copy.done{background: var(--ok); box-shadow: 0 4px 15px rgba(16,185,129,0.35)}
 
 .otp-box-wrapper{
-  background: rgba(255,255,255,0.02); border: 2px dashed rgba(99,102,241,0.4);
-  border-radius: 20px; padding: 18px; display: grid; gap: 14px; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  background: linear-gradient(145deg, rgba(18,24,38,0.9), rgba(11,15,25,0.95));
+  border: 1px solid rgba(99,102,241,0.3);
+  border-radius: 22px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.otp-box-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1), transparent 70%);
+  pointer-events: none;
 }
 .otp-submit-btn{
   font: inherit; background: linear-gradient(135deg, var(--neon), var(--cyan)); color: #fff; border: 0;
   border-radius: 14px; padding: 14px; font-weight: 800; font-size: 1rem; cursor: pointer;
-  width: 100%; text-align: center; box-shadow: 0 8px 25px var(--neon-glow); transition: opacity .2s;
+  width: 100%; text-align: center; box-shadow: 0 8px 25px var(--neon-glow); transition: all .2s;
+  position: relative; z-index: 1;
 }
-.otp-submit-btn:active{opacity:.9}
+.otp-submit-btn:hover{transform: translateY(-1px); opacity: .95}
 
 .otp-result-display{
-  background: rgba(15,23,42,0.8); border: 1px solid var(--border); border-radius: 14px;
-  padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: rgba(10, 15, 25, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+  animation: scaleUp .3s ease;
 }
-.otp-code-text{font-family:var(--f-en);font-size:1.5rem;font-weight:900;letter-spacing:.2em;color:var(--cyan);direction:ltr}
+.otp-code-text{
+  font-family: var(--f-en);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  color: #38BDF8;
+  direction: ltr;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
 
 .modal-overlay, .lang-modal-overlay{
   position: fixed; inset: 0; background: rgba(5, 7, 12, 0.85); backdrop-filter: blur(12px);
@@ -311,17 +344,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', copy:'کۆپی کردن', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpBtn:'وەرگرتنی کۆدی ناو لینک' },
+        otpBtn:'وەرگرتنی کۆدی ناو لینک', emailLabel:'ئیمەیڵ', passLabel:'پاسوۆرد', secretLabel:'زانیاری شاراوە' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقَتِك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpBtn:'الحصول على الرمز من الرابط' },
+        otpBtn:'الحصول على الرمز من الرابط', emailLabel:'البريد الإلكتروني', passLabel:'كلمة المرور', secretLabel:'معلومات سرية' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpBtn:'Get code from link' }
+        otpBtn:'Get code from link', emailLabel:'Email', passLabel:'Password', secretLabel:'Secret Info' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -357,19 +390,14 @@ closeModalBtn.onclick = () => {
   loadData();
 };
 
-function pickHeader(h){
-  const parts = String(h || '').split('|').map(s => s.trim());
-  if (parts.length < 2) return parts[0] || '';
-  return parts[LANGS.indexOf(lang)] || parts[0];
-}
-
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
 const ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>'
 ];
 
 function updateTexts() {
@@ -404,31 +432,50 @@ function render(){
   const has = i => !(d.values[i] === '' || d.values[i] == null);
   let html = '';
   
-  let activeIndices = [0, 1, 2, 3, 4].filter(has);
   let targetLinkURL = '';
 
-  if (activeIndices.length){
+  // Order wanted: index 0 (Email), index 1 (Password), then index 2, 3 (Secret info), then index 4 (5th field)
+  let displayOrder = [0, 1, 2, 3, 4];
+
+  if (displayOrder.some(has)){
     html += '<div class="list">';
-    activeIndices.forEach((i, idx) => {
-      const h = pickHeader(d.headers[i]);
+    displayOrder.forEach((i) => {
+      if (!has(i)) return;
       const val = String(d.values[i] || '').trim();
       
       if (val.startsWith('http://') || val.startsWith('https://')) {
         targetLinkURL = val;
       }
 
-      const isFirstOrSecond = (idx === 0 || idx === 1);
+      let labelName = '';
+      let isCopyable = false;
+
+      if (i === 0) {
+        labelName = t.emailLabel;
+        isCopyable = true;
+      } else if (i === 1) {
+        labelName = t.passLabel;
+        isCopyable = true;
+      } else if (i === 2 || i === 3) {
+        labelName = t.secretLabel;
+        isCopyable = false;
+      } else {
+        // Pick header from spreadsheet if available, else generic
+        let customHeaderParts = String(d.headers[i] || '').split('|').map(s => s.trim());
+        labelName = customHeaderParts.length >= 2 ? (customHeaderParts[LANGS.indexOf(lang)] || customHeaderParts[0]) : (customHeaderParts[0] || ('Field ' + (i+1)));
+        isCopyable = false;
+      }
 
       html += `
         <div class="item">
           <div class="item-left">
-            <span class="ic">${ICONS[idx % ICONS.length]}</span>
+            <span class="ic">${ICONS[i % ICONS.length]}</span>
             <div class="tx">
-              ${h ? '<dt>' + esc(h) + '</dt>' : ''}
+              <dt>${esc(labelName)}</dt>
               <dd>${esc(fmt(d.values[i]))}</dd>
             </div>
           </div>
-          ${isFirstOrSecond ? `<button class="copy" type="button" data-v="${esc(fmt(d.values[i]))}">${t.copy}</button>` : ''}
+          ${isCopyable ? `<button class="copy" type="button" data-v="${esc(fmt(d.values[i]))}">${t.copy}</button>` : ''}
         </div>
       `;
     });
@@ -492,7 +539,7 @@ function render(){
       }
 
       otpDisplayArea.style.display = 'grid';
-      otpDisplayArea.style.gap = '8px';
+      otpDisplayArea.style.gap = '10px';
       otpDisplayArea.innerHTML = `
         <div style="font-size:0.82rem;font-weight:800;color:var(--cyan);text-align:center">${lang==='ar'?'الرمز الموجود في الرابط:':(lang==='en'?'Code from link:':'کۆدی ناو لینکەکە:')}</div>
         <div class="otp-result-display">
