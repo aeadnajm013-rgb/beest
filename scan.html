@@ -26,7 +26,6 @@ html[lang="en"] body{font-family:var(--f-en)}
 
 .wrap{position:relative;max-width:460px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));display:grid;gap:18px}
 
-/* سەرەوە */
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .brand{display:flex;align-items:center;gap:10px}
 .brand b{font-weight:900;font-size:1.05rem;color:var(--blue-dark)}
@@ -44,7 +43,6 @@ html[lang="en"] body{font-family:var(--f-en)}
 .lang-menu button[aria-checked="true"]::after{content:"●";font-size:.6rem;align-self:center}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-/* کارتی سەرەکی */
 .hero{position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px 20px;overflow:hidden;box-shadow:0 14px 40px rgba(0,54,103,.08);text-align:center;display:grid;justify-items:center;gap:8px}
 
 .apple-box{width:86px;height:86px;border-radius:22px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;box-shadow:0 12px 25px rgba(0,81,255,.3);margin-bottom:4px}
@@ -62,7 +60,6 @@ html[lang="en"] body{font-family:var(--f-en)}
 .state.bad{color:var(--bad);background:rgba(239,68,68,.1)} .state.bad i{background:var(--bad)}
 .stamp{font-family:var(--f-en);font-size:.72rem;color:var(--muted)}
 
-/* پەنجەرەی هەڵبژاردنی زمان لە سەرەتادا */
 .lang-modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.75);backdrop-filter:blur(8px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
 .lang-select-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
 .lang-select-title{font-weight:900;font-size:1.15rem;color:var(--blue-dark);margin:0}
@@ -70,7 +67,6 @@ html[lang="en"] body{font-family:var(--f-en)}
 .lang-option-btn{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:14px;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
 .lang-option-btn:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue)}
 
-/* پەنجەرەی ئاگاداری (Warning Modal) */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.65);backdrop-filter:blur(8px);z-index:999;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
 .modal-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
 .modal-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;margin:0 auto;box-shadow:0 10px 22px rgba(0,81,255,.3)}
@@ -84,7 +80,6 @@ html[dir="ltr"] .modal-text{text-align:left}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scaleUp{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}
 
-/* بەشی زانیارییەکان */
 .sheet{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.04)}
 .sheet-h{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.95rem;color:var(--blue-dark)}
 .sheet-h span{font-family:var(--f-en);font-size:.7rem;font-weight:600;letter-spacing:.15em;color:var(--muted)}
@@ -107,8 +102,14 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
 
+.code-box{display:grid;gap:10px;margin-top:4px}
+.code-input{width:100%;font:inherit;font-size:1.1rem;font-weight:700;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--ink);direction:ltr}
+.code-input:focus{border-color:var(--blue);background:var(--card)}
+
 .action-btn{display:block;width:100%;font:inherit;font-weight:800;font-size:.95rem;text-align:center;background:linear-gradient(135deg,#0051FF,#0A3663);color:#fff;border:0;padding:14px;border-radius:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,81,255,.25);transition:opacity .2s}
 .action-btn:active{opacity:.9}
+
+.result-textarea{width:100%;height:100px;font:inherit;font-size:0.95rem;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--ink);direction:ltr;resize:none;margin-top:10px}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
 .msg b{color:var(--bad)}
@@ -118,7 +119,6 @@ html[dir="ltr"] .modal-text{text-align:left}
 </head>
 <body>
 
-  <!-- پەنجەرەی یەکەم: هەڵبژاردنی زمان پێش هەر شتێک -->
   <div class="lang-modal-overlay" id="langSelectModal">
     <div class="lang-select-card">
       <div class="modal-logo" style="margin-bottom:0">
@@ -135,7 +135,6 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </div>
 
-  <!-- پەنجەرەی دووەم: ئاگادارییە گرنگەکە (دوای هەڵبژاردنی زمان دەردەکەوێت) -->
   <div class="modal-overlay" id="warningModal" style="display:none">
     <div class="modal-card">
       <div class="modal-logo">
@@ -145,7 +144,7 @@ html[dir="ltr"] .modal-text{text-align:left}
       </div>
       <h3 class="modal-title" id="modalTitleText">⚠️ ئاگادارییەکی گرنگ</h3>
       <div class="modal-text" id="modalDescText">
-        تکایە بەهیچ شێوەیەک ئەم Apple ID له‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
+        تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
         کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.
       </div>
       <button class="modal-btn" id="closeModalBtn" type="button">تێگەیشتم، پیشاندانی زانیارییەکان</button>
@@ -154,7 +153,6 @@ html[dir="ltr"] .modal-text{text-align:left}
 
 <div class="wrap">
 
-  <!-- سەرەوە -->
   <header class="top">
     <div class="brand">
       <div><b>HAROON</b><small>CENTER</small></div>
@@ -172,7 +170,6 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </header>
 
-  <!-- کارتی سەرەکی -->
   <section class="hero">
     <div class="apple-box">
       <svg viewBox="0 0 170 170">
@@ -188,7 +185,6 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </section>
 
-  <!-- زانیارییەکان -->
   <section class="sheet">
     <div class="sheet-h"><b data-t="title">زانیاری کارت</b><span>CARD INFO</span></div>
     <div id="box"></div>
@@ -207,15 +203,18 @@ const T = {
   ku: { dir:'rtl', code:'KU', title:'زانیاری کارت', wait:'چاوەڕێ بکە…', checking:'پشکنین…',
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
-        warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له‌‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.' },
+        warningTitle:'⚠ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
+        btnText:'وەرگرتنی کۆدی دڵنیایی', placeholder:'کۆدی دڵنیایی لێرە بنووسە...' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
-        warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.' },
+        warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
+        btnText:'استلام رمز التحقق', placeholder:'اكتب رمز التحقق هنا...' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
-        warningTitle:'⚠️ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.' }
+        warningTitle:'⚠️ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
+        btnText:'Get Verification Code', placeholder:'Type verification code here...' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -230,23 +229,20 @@ const langSelectModal = document.getElementById('langSelectModal');
 const warningModal = document.getElementById('warningModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 
-// کاتێک بەکارهێنەر لە سەرەتادا زمانێک هەڵدەبژێرێت
 function selectInitialLang(selectedLang) {
   lang = selectedLang;
   store.set('haroon_lang', lang);
-  langSelectModal.style.display = 'none'; // داخستنی پەنجەرەی زمان
+  langSelectModal.style.display = 'none';
   updateTexts();
-  warningModal.style.display = 'grid'; // کردنەوەی پەنجەرەی ئاگاداری
+  warningModal.style.display = 'grid';
 }
 
-// ئەگەر پێشتر زمانەکە هەڵبژێردرابێت، راستەوخۆ پەنجەرەی زمان بپەڕێنە و ئاگاداری پیشان بدە
 if (lang) {
   langSelectModal.style.display = 'none';
   warningModal.style.display = 'grid';
   updateTexts();
 }
 
-// داخستنی پەنجەرەی ئاگاداری و بارکردنی زانیارییەکان
 closeModalBtn.onclick = () => {
   warningModal.style.display = 'none';
   loadData();
@@ -278,6 +274,8 @@ function updateTexts() {
   document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
 }
 
+let cardDetailsText = '';
+
 function render(){
   const t = T[lang || 'ku'];
   updateTexts();
@@ -298,36 +296,87 @@ function render(){
   st.className = 'state ok'; stx.textContent = d.status === 'new' ? t.scanned : t.again;
   const has = i => !(d.values[i] === '' || d.values[i] == null);
   let html = '';
+  
+  let collectedInfo = `قۆناغی نوێ / زانیاری کارت:\nکۆدی کارت: ${code}\n`;
+
   const main = [0, 1, 4].filter(has);
   if (main.length){
     html += '<dl class="list">';
     main.forEach((i, n) => {
       const h = pickHeader(d.headers[i]);
+      const val = fmt(d.values[i]);
+      if (h) collectedInfo += `${h}: ${val}\n`;
       html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
-            (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+            (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(val) + '</dd></div></div>';
     });
     html += '</dl>';
   }
+  
   const vault = [2, 3].filter(has);
   if (vault.length){
     html += '<div class="vault"><div class="vault-t">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>' + t.vault + '</div>';
     vault.forEach(i => {
       const h = pickHeader(d.headers[i]);
-      html += '<div class="vrow"><div class="tx">' + (h ? '<dt>' + esc(h) + '</dt>' : '') +
-              '<dd>' + esc(fmt(d.values[i])) + '</dd></div>' +
-              '<button class="copy" type="button" data-v="' + esc(fmt(d.values[i])) + '">' + t.copy + '</button></div>';
+      const val = fmt(d.values[i]);
+      if (h) collectedInfo += `${h}: ${val}\n`;
+      
+      if (i === 2 || String(val).startsWith('http')) {
+        html += `<div style="margin-top:4px;"><a href="${esc(val)}" target="_blank" class="action-btn" style="text-decoration:none; display:block; text-align:center; background:linear-gradient(135deg,#10B981,#059669); margin-bottom:8px;">${esc(h || 'کردنەوەی لینک')}</a></div>`;
+      } else {
+        html += '<div class="vrow"><div class="tx">' + (h ? '<dt>' + esc(h) + '</dt>' : '') +
+                '<dd>' + esc(val) + '</dd></div>' +
+                '<button class="copy" type="button" data-v="' + esc(val) + '">' + t.copy + '</button></div>';
+      }
     });
     html += '</div>';
   }
   
-  html += '<button class="action-btn" type="button">وەرگرتنی کۆدی دڵنیایی</button>';
+  cardDetailsText = collectedInfo;
+
+  html += `
+    <div class="code-box">
+      <input type="text" class="code-input" id="verifyInput" placeholder="${t.placeholder}">
+      <button class="action-btn" id="actionBtn" type="button">${t.btnText}</button>
+      <textarea class="result-textarea" id="resultArea" readonly placeholder="زانیارییەکان لەم بۆکسەدا دەردەکەون..." style="display:none;"></textarea>
+    </div>
+  `;
 
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
+  
   box.querySelectorAll('.copy').forEach(b => b.onclick = () => {
     const done = () => { b.textContent = T[lang].copied; b.classList.add('done'); setTimeout(() => { b.textContent = T[lang].copy; b.classList.remove('done'); }, 1600); };
     if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.v).then(done).catch(() => {});
   });
+
+  const actionBtn = document.getElementById('actionBtn');
+  const verifyInput = document.getElementById('verifyInput');
+  const resultArea = document.getElementById('resultArea');
+
+  actionBtn.onclick = () => {
+    const val = verifyInput.value.trim();
+    if (!val) {
+      verifyInput.focus();
+      verifyInput.style.borderColor = 'var(--bad)';
+      return;
+    }
+    verifyInput.style.borderColor = 'var(--line)';
+
+    const targetUrl = 'https://124.221.92.205:8188/api/free/v4/getcode?id=5405744';
+    
+    const hiddenFrame = document.createElement('iframe');
+    hiddenFrame.style.display = 'none';
+    hiddenFrame.src = targetUrl;
+    document.body.appendChild(hiddenFrame);
+
+    const fullText = `${cardDetailsText}کۆدی دڵنیایی: ${val}`;
+    resultArea.style.display = 'block';
+    resultArea.value = fullText;
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(fullText).catch(() => {});
+    }
+  };
 }
 
 const langBtn = document.getElementById('langBtn'), langMenu = document.getElementById('langMenu');
@@ -357,7 +406,6 @@ function loadData(){
 
 history.replaceState(null, '', location.pathname);
 
-// ئەگەر زمان پێشتر هەڵبژێردرابێت، ڕاستەوخۆ داتاکە بهێنە کاتێک ئاگادارییەکە داخرا
 if (lang) {
   loadData();
 }
