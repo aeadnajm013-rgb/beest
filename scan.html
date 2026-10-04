@@ -147,14 +147,6 @@ html[dir="ltr"] .modal-text{text-align:left}
 .sheet-h{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.95rem;color:#f8fafc}
 .sheet-h span{font-family:var(--f-en);font-size:.7rem;font-weight:600;letter-spacing:.15em;color:var(--muted)}
 
-.list{display:grid;gap:10px;margin:0}
-.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(3,7,18,0.75);border:1px solid var(--line);box-shadow: 0 0 10px rgba(0,0,0,0.2)}
-.item .ic{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--blue-light);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}
-.item .ic svg{width:18px;height:18px}
-.tx{display:grid;min-width:0;width:100%}
-.item dt{font-size:.72rem;color:var(--muted)}
-.item dd{margin:0;font-size:1.05rem;font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-align:start}
-
 .vault{
   border-radius:16px;padding:14px;display:grid;gap:10px;
   background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(3,7,18,0.95));border:1px solid rgba(59,130,246,0.4);
@@ -168,6 +160,52 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy{font:inherit;font-size:.75rem;font-weight:700;border:0;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8);border-radius:8px;padding:7px 14px;cursor:pointer;transition:all .2s;box-shadow:0 0 12px rgba(37,99,235,0.5)}
 .copy:hover{background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 0 20px rgba(59,130,246,0.8)}
 .copy.done{background:var(--ok);box-shadow:0 0 15px rgba(16,185,129,0.7)}
+
+/* Countdown & Blur Protection Styles */
+.blur-overlay-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.blurred-content {
+  filter: blur(8px);
+  user-select: none;
+  pointer-events: none;
+  transition: filter 0.5s ease;
+}
+.countdown-shield {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  text-align: center;
+  padding: 15px;
+}
+.countdown-number {
+  font-family: var(--f-en);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #38bdf8;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  animation: pulseNumber 1s infinite alternate;
+}
+@keyframes pulseNumber {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.08); opacity: 1; }
+}
+.countdown-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
 
 .otp-box-wrapper{
   background:rgba(3,7,18,0.9);border:1.5px solid var(--blue);border-radius:16px;padding:16px;
@@ -276,20 +314,23 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت',
         modalBtnReady:'تێگەیشتم، پیشاندانی زانیارییەکان',
-        warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpBtn:'وەرگرتنی کۆدی ناو لینک' },
+        warningTitle:'⚠️️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
+        otpBtn:'وەرگرتنی کۆدی ناو لینک',
+        securityWait:'پاراستنی زانیارییەکان...', securityDesc:'تکایە چاوەڕێ بکە تاوەکو زانیارییەکان دەردەکەون' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقَتِك',
         modalBtnReady:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpBtn:'الحصول على الرمز من الرابط' },
+        otpBtn:'الحصول على الرمز من الرابط',
+        securityWait:'حماية المعلومات...', securityDesc:'يرجى الانتظار حتى ظهور البيانات' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust',
         modalBtnReady:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpBtn:'Get code from link' }
+        otpBtn:'Get code from link',
+        securityWait:'Securing details...', securityDesc:'Please wait while details unlock' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -413,7 +454,40 @@ function render(){
     html += '</div>';
   }
 
-  box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
+  // Wrapping contents inside the 5-seconds countdown blur shield
+  box.innerHTML = `
+    <div class="blur-overlay-box" id="blurContainer">
+      <div class="countdown-shield" id="countdownShield">
+        <div class="countdown-number" id="countdownNum">5</div>
+        <div class="countdown-text">${t.securityWait}</div>
+      </div>
+      <div class="blurred-content" id="protectedContent" style="display:grid;gap:12px">
+        ${html}
+      </div>
+    </div>
+  `;
+
+  // Start 5 Seconds Countdown
+  let timeLeft = 5;
+  const countdownNum = document.getElementById('countdownNum');
+  const countdownShield = document.getElementById('countdownShield');
+  const protectedContent = document.getElementById('protectedContent');
+
+  const timer = setInterval(() => {
+    timeLeft--;
+    if (countdownNum) countdownNum.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      if (countdownShield) {
+        countdownShield.style.opacity = '0';
+        countdownShield.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => countdownShield.remove(), 400);
+      }
+      if (protectedContent) {
+        protectedContent.style.filter = 'blur(0)';
+      }
+    }
+  }, 1000);
 
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
   const otpDisplayArea = document.getElementById('otpDisplayArea');
@@ -482,7 +556,7 @@ function render(){
       const copyOtpBtn = document.getElementById('copyOtpBtn');
       if (copyOtpBtn) {
         copyOtpBtn.onclick = () => {
-          const done = () => { copyOtpBtn.textContent = T[lang].copied; copyOtpBtn.classList.add('done'); setTimeout(() => { copyOtpBtn.textContent = T[lang].copy; copyOtpBtn.classList.remove('done'); }, 1600); };
+          const done = () => { copyOtpBtn.textContent = T[lang].copied; copyOtpBtn.classList.add('done'); setTimeout(() => { copyTabBtnText = T[lang].copy; copyOtpBtn.classList.remove('done'); }, 1600); };
           if (navigator.clipboard) navigator.clipboard.writeText(fetchedCode).then(done).catch(() => {});
         };
       }
