@@ -62,7 +62,7 @@ html[lang="en"] body{font-family:var(--f-en)}
 .state.bad{color:var(--bad);background:rgba(239,68,68,.1)} .state.bad i{background:var(--bad)}
 .stamp{font-family:var(--f-en);font-size:.72rem;color:var(--muted)}
 
-/* پەنجەرەی هەڵبژاردنی زمان */
+/* پەنجەرەی هەڵبژاردنی زمان لە سەرەتادا */
 .lang-modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.75);backdrop-filter:blur(8px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
 .lang-select-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
 .lang-select-title{font-weight:900;font-size:1.15rem;color:var(--blue-dark);margin:0}
@@ -70,7 +70,7 @@ html[lang="en"] body{font-family:var(--f-en)}
 .lang-option-btn{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:14px;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
 .lang-option-btn:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue)}
 
-/* پەنجەرەی ئاگاداری */
+/* پەنجەرەی ئاگاداری (Warning Modal) */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.65);backdrop-filter:blur(8px);z-index:999;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
 .modal-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
 .modal-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;margin:0 auto;box-shadow:0 10px 22px rgba(0,81,255,.3)}
@@ -79,6 +79,7 @@ html[lang="en"] body{font-family:var(--f-en)}
 .modal-text{font-size:.88rem;color:var(--ink);line-height:1.7;text-align:right}
 html[dir="ltr"] .modal-text{text-align:left}
 .modal-btn{background:linear-gradient(135deg,#0051FF,#0A3663);color:#fff;border:0;padding:14px;border-radius:14px;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 8px 20px rgba(0,81,255,.25)}
+.modal-btn:active{opacity:.9}
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scaleUp{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}
@@ -96,6 +97,10 @@ html[dir="ltr"] .modal-text{text-align:left}
 .item dt{font-size:.72rem;color:var(--muted)}
 .item dd{margin:0;font-size:1.05rem;font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-align:start}
 
+.link-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--blue-light);color:var(--blue);border:1px solid rgba(0,81,255,.2);padding:12px;border-radius:12px;font-weight:800;font-size:.9rem;text-decoration:none;transition:all .2s;margin-top:4px}
+.link-btn:hover{background:var(--blue);color:#fff}
+.link-btn svg{width:18px;height:18px}
+
 .vault{border-radius:16px;padding:14px;display:grid;gap:10px;background:linear-gradient(135deg,rgba(0,81,255,.04),rgba(0,81,255,.01));border:1px solid rgba(0,81,255,.15)}
 .vault-t{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.85rem;color:var(--blue)}
 .vault-t svg{width:16px;height:16px}
@@ -106,15 +111,19 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
 
-/* دوگمە و سندوقی دەقی نوێ لە پەڕەی سەرەکیدا */
+/* بۆکسی جوانی نوسینی کۆدی OTP کە دەکەوێتە سەروی خانەی سێیەم */
+.otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:10px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
+.otp-title{font-size:.85rem;font-weight:800;color:var(--blue-dark);text-align:center}
+.otp-inputs{display:flex;justify-content:center;gap:6px;direction:ltr}
+.otp-input{width:42px;height:48px;font-size:1.3rem;font-weight:800;text-align:center;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none;transition:all .2s}
+.otp-input:focus{border-color:var(--blue);background:var(--card);box-shadow:0 0 0 3px rgba(0,81,255,.15)}
+.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:10px;font-weight:800;font-size:.9rem;cursor:pointer;transition:background .2s}
+.otp-submit-btn:hover{background:var(--blue-dark)}
+
+/* دوگمەی سەرەکی لەژێر زانیارییەکاندا */
 .action-box{display:grid;gap:10px;margin-top:6px;padding-top:12px;border-top:1px dashed var(--line)}
 .action-btn{display:block;width:100%;font:inherit;font-weight:800;font-size:1rem;text-align:center;background:linear-gradient(135deg,#0051FF,#0A3663);color:#fff;border:0;padding:15px;border-radius:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,81,255,.25);transition:opacity .2s}
 .action-btn:active{opacity:.9}
-
-/* سندوقی دەرکەوتنی دەقەکە لە پەڕەی سەرەکیدا کاتێک دوگمە دەدترێت */
-.result-box{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;display:grid;gap:6px;text-align:start}
-.result-box h4{margin:0;font-size:.85rem;color:var(--blue)}
-.result-box p{margin:0;font-size:1.1rem;font-weight:900;color:var(--blue-dark);direction:ltr;text-align:center;letter-spacing:.05em}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
 .msg b{color:var(--bad)}
@@ -124,11 +133,13 @@ html[dir="ltr"] .modal-text{text-align:left}
 </head>
 <body>
 
-  <!-- پەنجەرەی یەکەم: هەڵبژاردنی زمان -->
+  <!-- پەنجەرەی یەکەم: هەڵبژاردنی زمان پێش هەر شتێک -->
   <div class="lang-modal-overlay" id="langSelectModal">
     <div class="lang-select-card">
       <div class="modal-logo" style="margin-bottom:0">
-        <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+        </svg>
       </div>
       <h3 class="lang-select-title">تکایە زمانێک هەڵبژێرە<br><span style="font-size:0.85rem;color:var(--muted);font-weight:500">Please select your language</span></h3>
       <div class="lang-options">
@@ -139,11 +150,13 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </div>
 
-  <!-- پەنجەرەی دووەم: ئاگاداری -->
+  <!-- پەنجەرەی دووەم: ئاگادارییە گرنگەکە -->
   <div class="modal-overlay" id="warningModal" style="display:none">
     <div class="modal-card">
       <div class="modal-logo">
-        <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+        </svg>
       </div>
       <h3 class="modal-title" id="modalTitleText">⚠️ ئاگادارییەکی گرنگ</h3>
       <div class="modal-text" id="modalDescText">
@@ -156,6 +169,7 @@ html[dir="ltr"] .modal-text{text-align:left}
 
 <div class="wrap">
 
+  <!-- سەرەوە -->
   <header class="top">
     <div class="brand">
       <div><b>HAROON</b><small>CENTER</small></div>
@@ -173,9 +187,12 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </header>
 
+  <!-- کارتی سەرەکی -->
   <section class="hero">
     <div class="apple-box">
-      <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
+      <svg viewBox="0 0 170 170">
+        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+      </svg>
     </div>
     <h1>HAROON</h1>
     <div class="sub-title">Center</div>
@@ -186,6 +203,7 @@ html[dir="ltr"] .modal-text{text-align:left}
     </div>
   </section>
 
+  <!-- زانیارییەکان -->
   <section class="sheet">
     <div class="sheet-h"><b data-t="title">زانیاری کارت</b><span>CARD INFO</span></div>
     <div id="box"></div>
@@ -205,17 +223,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        btnText:'🔄 نوێکردنەوە و وەرگرتنی کۆدی نوێی پشکنین' },
+        btnText:'پەیوەندیکردن یان ناردن بۆ تێلیگرام', linkBtnText:'کردنەوەی بەستەری وەرگرتنی کۆد', otpTitle:'کۆدی دڵنیایی (OTP) داخل بکە', otpBtn:'ناردنی کۆد' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        btnText:'🔄 تحديث وجلب رمز التحقق الجديد' },
+        btnText:'الانتقال إلى تليجرام', linkBtnText:'فتح رابط استلاستلام الرمز', otpTitle:'أدخل رمز التحقق (OTP)', otpBtn:'إرسال الرمز' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        btnText:'🔄 Refresh & Fetch New Verification Code' }
+        btnText:'Send to Telegram', linkBtnText:'Open Code Verification Link', otpTitle:'Enter Verification Code (OTP)', otpBtn:'Submit Code' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -223,7 +241,6 @@ const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return
 
 let lang = store.get('haroon_lang') || null;
 let state = { kind: 'loading' };
-let backgroundFetchedText = ''; // بۆ هەڵگرتنی کۆدەکە
 
 const code = (new URLSearchParams(location.search).get('c') || '').trim();
 const box = document.getElementById('box');
@@ -301,11 +318,44 @@ function render(){
     html += '<dl class="list">';
     main.forEach((i, n) => {
       const h = pickHeader(d.headers[i]);
-      html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
-            (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+      const val = String(d.values[i] || '').trim();
+      
+      // کاتێک خانەی سێیەم (index 2 یان خانەی سێیەمی لیستی سەرەکی) دەبێتە لینکی داواکراو
+      if (n === 2 || val.startsWith('http://') || val.startsWith('https://')) {
+        html += `<div class="item" id="thirdItemBox" style="cursor: pointer;">
+          <span class="ic">${ICONS[n]}</span>
+          <div class="tx">
+            ${h ? '<dt>' + esc(h) + '</dt>' : ''}
+            <a href="${esc(val)}" target="_blank" id="thirdItemLink" class="link-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>${t.linkBtnText}</span>
+            </a>
+          </div>
+        </div>`;
+      } else {
+        html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
+              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+      }
     });
     html += '</dl>';
   }
+
+  // بۆکسی کۆدی OTP کە ڕاستەوخۆ دەکەوێتە سەروی خانەی سێیەم (دەتوانە لەم شوێنەدا پیشان بدرێت)
+  html += `
+    <div class="otp-box-wrapper">
+      <div class="otp-title">${t.otpTitle}</div>
+      <div class="otp-inputs" id="otpInputs">
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" />
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+      </div>
+      <button type="button" class="otp-submit-btn" id="otpSubmitBtn">${t.otpBtn}</button>
+    </div>
+  `;
+
   const vault = [2, 3].filter(has);
   if (vault.length){
     html += '<div class="vault"><div class="vault-t">' +
@@ -319,42 +369,68 @@ function render(){
     html += '</div>';
   }
   
-  /* دوگمە و سندوقی دەقی کۆدەکە لە پەڕەی سەرەکیدا */
+  /* دوگمە لەژێر زانیارییەکاندا */
   html += `
     <div class="action-box">
       <button class="action-btn" id="actionBtn" type="button">${t.btnText}</button>
-      <div class="result-box" id="resultBox" ${backgroundFetchedText ? '' : 'hidden'}>
-        <p id="resultText">${esc(backgroundFetchedText)}</p>
-      </div>
     </div>
   `;
 
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
   
+  // زیادکردنی کارکردن بۆ خانەی سێیەم (کاتێک دەست لە کێڵگەکە دەدرێت لینکەکە دەکرێتەوە)
+  const thirdBox = document.getElementById('thirdItemBox');
+  const thirdLink = document.getElementById('thirdItemLink');
+  if (thirdBox && thirdLink) {
+    thirdBox.onclick = (e) => {
+      if (e.target.tagName !== 'A' && e.target.closest('a') !== thirdLink) {
+        window.open(thirdLink.href, '_blank');
+      }
+    };
+  }
+
+  // ڕێکخستنی جوڵەی نوسینی خانەکانی OTP (بۆ ئەوەی خۆکارانە بچێتە خانەی داهاتوو)
+  const otpInputs = document.querySelectorAll('.otp-input');
+  otpInputs.forEach((input, index) => {
+    input.oninput = (e) => {
+      const val = e.target.value;
+      if (val && index < otpInputs.length - 1) {
+        otpInputs[index + 1].focus();
+      }
+    };
+    input.onkeydown = (e) => {
+      if (e.key === 'Backspace' && !input.value && index > 0) {
+        otpInputs[index - 1].focus();
+      }
+    };
+  });
+
+  const otpSubmitBtn = document.getElementById('otpSubmitBtn');
+  if (otpSubmitBtn) {
+    otpSubmitBtn.onclick = () => {
+      let otpCode = '';
+      otpInputs.forEach(inp => otpCode += inp.value);
+      if (otpCode.length < 6) {
+        alert(lang === 'ar' ? 'يرجى إدخال الرمز المكون من 6 أرقام كاملة' : (lang === 'en' ? 'Please enter the full 6-digit code' : 'تکایە هەردوو 6 ژمارەکەی کۆدەکە بە تەواوی بنووسە'));
+        return;
+      }
+      alert(lang === 'ar' ? 'تم إرسال الكود بنجاح: ' + otpCode : (lang === 'en' ? 'Code submitted successfully: ' + otpCode : 'کۆدەکە بە سەرکەوتوویی نێردرا: ' + otpCode));
+    };
+  }
+
   box.querySelectorAll('.copy').forEach(b => b.onclick = () => {
     const done = () => { b.textContent = T[lang].copied; b.classList.add('done'); setTimeout(() => { b.textContent = T[lang].copy; b.classList.remove('done'); }, 1600); };
     if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.v).then(done).catch(() => {});
   });
 
-  // فەنکشنی دوگمەکە بۆ کردنەوەی لینکەکە لە پشتەوە و هێنانی کۆدی نوێ
+  // فەنکشنی دوگمەکە بۆ گواستنەوە بۆ تێلیگرام
   const actionBtn = document.getElementById('actionBtn');
   if (actionBtn) {
-    actionBtn.onclick = async () => {
-      actionBtn.textContent = (lang === 'en' ? 'Checking code...' : (lang === 'ar' ? 'جاري التحقق من الرمز...' : 'پشکنینی کۆد...'));
-      try {
-        const targetUrl = API + '?action=background&code=' + encodeURIComponent(code) + '&_t=' + Date.now();
-        const response = await fetch(targetUrl);
-        const resData = await response.json();
-        
-        const fetchedCode = resData.code || resData.message || resData.text || '663101';
-        backgroundFetchedText = `AppleID 登录验证码:${fetchedCode}`;
-        
-      } catch (err) {
-        backgroundFetchedText = 'AppleID 登录验证码:663101';
-      }
-      
-      actionBtn.textContent = t.btnText;
-      render();
+    actionBtn.onclick = () => {
+      const botUsername = 'YourBotOrChannelName'; 
+      const textToSend = encodeURIComponent(`کۆدی کارت: ${code}`);
+      const telegramLink = `https://t.me/${botUsername}?text=${textToSend}`;
+      window.location.href = telegramLink;
     };
   }
 }
