@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#06161B">
+<title>دوو برا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+/* شێوە: کارتێکی تاریکی پرێمیۆم، ئاڵتوونی و سەوزی شین */
+:root{
+  --bg:#06161B; --bg2:#0B2229; --panel:#0F2A32; --panel2:#123540; --line:rgba(255,255,255,.09);
+  --ink:#EEF5F6; --muted:#8FA9B0; --teal:#2FB3C4; --teal-d:#0E6B7A;
+  --gold:#E6B858; --gold-2:#F6D88C; --gold-d:#B8862E; --ok:#4FD18B; --bad:#FF8A80;
+  --f-ku:"Vazirmatn",Tahoma,sans-serif; --f-en:"Outfit","Vazirmatn",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--f-ku);line-height:1.65;overflow-x:hidden;
+  background-image:
+    radial-gradient(900px 500px at 50% -10%, rgba(47,179,196,.22), transparent 60%),
+    radial-gradient(600px 400px at 100% 100%, rgba(230,184,88,.10), transparent 60%);
+  background-attachment:fixed}
+html[lang="en"] body{font-family:var(--f-en)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px;mask-image:radial-gradient(circle at 50% 20%,#000 0,transparent 70%)}
+
+.wrap{position:relative;max-width:460px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));display:grid;gap:18px}
+
+/* سەرەوە */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mini{width:34px;height:34px}
+.brand b{font-weight:900;font-size:1.05rem;letter-spacing:.01em}
+.brand small{display:block;font-family:var(--f-en);font-size:.62rem;letter-spacing:.32em;color:var(--gold);margin-top:-2px;direction:ltr;text-align:start}
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;font:inherit;font-family:var(--f-en);font-weight:700;font-size:.78rem;color:var(--ink);
+  background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:99px;padding:7px 12px;cursor:pointer;backdrop-filter:blur(8px)}
+.lang-btn svg{width:16px;height:16px;color:var(--gold)}
+.lang-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:160px;background:#0E252C;border:1px solid var(--line);
+  border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.45);padding:6px;display:grid;gap:2px;z-index:10}
+.lang-menu button{font:inherit;font-size:.95rem;text-align:start;background:none;border:0;color:var(--ink);padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;gap:12px}
+.lang-menu button:hover{background:rgba(255,255,255,.06)}
+.lang-menu button[aria-checked="true"]{color:var(--gold-2);font-weight:800}
+.lang-menu button[aria-checked="true"]::after{content:"●";font-size:.6rem;align-self:center}
+.lang-menu .en{font-family:var(--f-en)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* کارتی سەرەکی (وەک گیفت کارت) */
+.hero{position:relative;border-radius:22px;padding:22px 20px 20px;overflow:hidden;isolation:isolate;
+  background:linear-gradient(140deg,#0F4652 0%,#0A2F37 45%,#071D22 100%);
+  border:1px solid rgba(246,216,140,.25);box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)}
+.hero::before{content:"";position:absolute;inset:-40% -30% auto auto;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,184,88,.28),transparent 65%);z-index:-1}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background:repeating-linear-gradient(115deg,transparent 0 18px,rgba(255,255,255,.025) 18px 19px)}
+.shine{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 48%,transparent 60%);transform:translateX(-120%);animation:shine 5.5s ease-in-out 1s infinite}
+@keyframes shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+.hero-row{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.mark{width:74px;height:74px;flex:none;overflow:visible;animation:led 2.6s ease-in-out infinite}
+.mark .ring{animation:ring 2.6s ease-in-out infinite}
+@keyframes led{0%,100%{filter:drop-shadow(0 0 4px rgba(243,207,122,.55)) drop-shadow(0 0 10px rgba(243,207,122,.3))}
+  50%{filter:drop-shadow(0 0 8px rgba(255,224,150,.95)) drop-shadow(0 0 22px rgba(243,207,122,.65)) drop-shadow(0 0 36px rgba(79,214,230,.35))}}
+@keyframes ring{0%,100%{stroke-opacity:.7}50%{stroke-opacity:1}}
+.chip{width:42px;height:32px;border-radius:7px;background:linear-gradient(135deg,var(--gold-2),var(--gold-d));position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.chip::before,.chip::after{content:"";position:absolute;inset:7px 6px;border:1px solid rgba(0,0,0,.25);border-radius:4px}
+.chip::after{inset:14px 0 auto;height:0;border-width:1px 0 0}
+.hero h1{position:relative;margin:16px 0 0;font-size:2.1rem;font-weight:900;line-height:1.05;letter-spacing:.01em;
+  background:linear-gradient(180deg,#FFFFFF 0%,#D8EEF1 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .latin{position:relative;font-family:var(--f-en);font-weight:700;font-size:.72rem;letter-spacing:.5em;color:var(--gold);direction:ltr;text-align:start;margin-top:4px}
+.hero .tag{position:relative;margin:10px 0 0;font-size:.85rem;color:#B9D3D8}
+.hero-foot{position:relative;margin-top:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.state{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.85rem;padding:6px 12px;border-radius:99px;
+  background:rgba(255,255,255,.07);border:1px solid var(--line)}
+.state i{width:8px;height:8px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 0 currentColor}
+.state.ok{color:var(--ok)} .state.ok i{background:var(--ok);animation:pulse 2s infinite}
+.state.bad{color:var(--bad)} .state.bad i{background:var(--bad)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(79,209,139,.6)}70%{box-shadow:0 0 0 8px rgba(79,209,139,0)}100%{box-shadow:0 0 0 0 rgba(79,209,139,0)}}
+.stamp{font-family:var(--f-en);font-size:.72rem;color:#9CB8BE;direction:ltr;text-align:end;font-variant-numeric:tabular-nums}
+
+/* زانیارییەکان */
+.sheet{background:linear-gradient(180deg,var(--panel) 0%,#0C232A 100%);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px;
+  box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.sheet-h{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:800;font-size:.95rem}
+.sheet-h span{font-family:var(--f-en);font-size:.7rem;font-weight:600;letter-spacing:.2em;color:var(--muted);direction:ltr}
+.list{display:grid;gap:10px;margin:0}
+.item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line);
+  opacity:0;transform:translateY(8px);animation:rise .5s cubic-bezier(.2,.8,.2,1) forwards}
+.item .ic{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(47,179,196,.25),rgba(47,179,196,.08));border:1px solid rgba(47,179,196,.35);color:var(--teal)}
+.item .ic svg{width:19px;height:19px}
+.tx{display:grid;min-width:0}
+.item dt{font-size:.75rem;color:var(--muted)}
+.item dd{margin:0;font-size:1.12rem;font-weight:700;overflow-wrap:anywhere;unicode-bidi:plaintext;text-align:start}
+.item.price dd{font-family:var(--f-en);font-weight:800;font-size:1.3rem;color:var(--gold-2);font-variant-numeric:tabular-nums}
+@keyframes rise{to{opacity:1;transform:none}}
+
+.vault{position:relative;border-radius:18px;padding:16px;display:grid;gap:10px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(230,184,88,.16),rgba(230,184,88,.04) 60%);border:1px solid rgba(230,184,88,.45);
+  opacity:0;transform:translateY(8px);animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards}
+.vault::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(120deg,transparent 20%,rgba(246,216,140,.9) 50%,transparent 80%) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  background-size:300% 100%;animation:edge 4s linear infinite}
+@keyframes edge{to{background-position:-300% 0}}
+.vault-t{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.9rem;color:var(--gold-2)}
+.vault-t svg{width:18px;height:18px}
+.vrow{display:flex;align-items:center;gap:10px;justify-content:space-between;background:rgba(6,22,27,.65);border:1px solid rgba(230,184,88,.22);border-radius:12px;padding:11px 12px}
+.vrow dt{font-size:.72rem;color:#C9AE73}
+.vrow dd{margin:0;font-family:"Outfit",ui-monospace,monospace;font-size:clamp(.95rem,4.6vw,1.2rem);font-weight:800;letter-spacing:.03em;white-space:nowrap;overflow-x:auto;direction:ltr;text-align:start;unicode-bidi:plaintext;color:#FFF6DE}
+.copy{flex:none;font:inherit;font-size:.78rem;font-weight:800;border:0;color:#1B1304;background:linear-gradient(135deg,var(--gold-2),var(--gold));border-radius:10px;padding:8px 12px;cursor:pointer;
+  box-shadow:0 6px 16px rgba(230,184,88,.25);transition:transform .15s}
+.copy:active{transform:scale(.96)}
+.copy.done{background:linear-gradient(135deg,#7FE6AE,var(--ok))}
+
+.msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:26px 10px}
+.msg .big{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(255,138,128,.12);border:1px solid rgba(255,138,128,.4);color:var(--bad)}
+.msg .big svg{width:28px;height:28px}
+.msg b{font-size:1.05rem}
+.loader{display:grid;justify-items:center;gap:14px;padding:30px 0;color:var(--muted)}
+.spin{width:40px;height:40px;border-radius:50%;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.sk{height:58px;border-radius:14px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));background-size:200% 100%;animation:sk 1.2s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+
+.foot{text-align:center;font-size:.78rem;color:var(--muted);display:grid;gap:4px}
+.foot b{color:var(--gold)}
+.foot .seal{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:.72rem;color:#7FA0A7}
+.foot .seal svg{width:14px;height:14px;color:var(--ok)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.item,.vault{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- سەرەوە: براند و زمان -->
+  <header class="top">
+    <div class="brand">
+      <svg class="mini" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6D88C"/><stop offset="1" stop-color="#B8862E"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gm)" stroke-width="5"/>
+        <rect x="27" y="34" width="20" height="40" rx="10" fill="url(#gm)"/><circle cx="37" cy="24" r="8" fill="url(#gm)"/>
+        <rect x="53" y="42" width="20" height="32" rx="10" fill="#fff"/><circle cx="63" cy="33" r="7" fill="#fff"/>
+      </svg>
+      <div><b>دوو برا</b><small>DW BRA</small></div>
+    </div>
+    <div class="lang">
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg>
+        <span id="langCode">KU</span>
+      </button>
+      <div class="lang-menu" id="langMenu" role="menu" hidden>
+        <button type="button" role="menuitemradio" data-lang="ku">کوردی</button>
+        <button type="button" role="menuitemradio" data-lang="ar">العربية</button>
+        <button type="button" role="menuitemradio" data-lang="en" class="en">English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- کارتی سەرەکی -->
+  <section class="hero" aria-label="DW BRA">
+    <div class="shine" aria-hidden="true"></div>
+    <div class="hero-row">
+      <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="DW BRA">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6D88C"/><stop offset="1" stop-color="#C98E2C"/></linearGradient></defs>
+        <circle class="ring" cx="50" cy="50" r="47" fill="#FFFFFF" fill-opacity=".06" stroke="url(#g)" stroke-width="3"/>
+        <circle cx="50" cy="50" r="41" fill="none" stroke="#7FE3F0" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 5"/>
+        <rect x="27" y="34" width="20" height="40" rx="10" fill="url(#g)"/><circle cx="37" cy="24" r="8" fill="url(#g)"/>
+        <rect x="53" y="42" width="20" height="32" rx="10" fill="#FFFFFF"/><circle cx="63" cy="33" r="7" fill="#FFFFFF"/>
+        <rect x="22" y="77" width="56" height="5" rx="2.5" fill="url(#g)"/>
+      </svg>
+      <div class="chip" aria-hidden="true"></div>
+    </div>
+    <h1>دوو برا</h1>
+    <div class="latin">DW BRA</div>
+    <p class="tag" data-t="tag"></p>
+    <div class="hero-foot">
+      <span class="state" id="state"><i></i><span id="stateTx"></span></span>
+      <span class="stamp" id="time"></span>
+    </div>
+  </section>
+
+  <!-- زانیارییەکان -->
+  <section class="sheet" aria-live="polite">
+    <div class="sheet-h"><b data-t="title"></b><span>CARD INFO</span></div>
+    <div id="box"></div>
+  </section>
+
+  <footer class="foot">
+    <span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span data-t="secure"></span></span>
+    <span>© <b>دوو برا · DW BRA</b> — <span data-t="thanks"></span></span>
+  </footer>
+</div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbwXT21qj1UyxWQ_Yf80Ae3iNXEgUTXepU4d0ANSO8FDhhMAd8wZ4PPz3sI2OetofLIbDA/exec';
+
+// ---------- وەرگێڕان ----------
+const T = {
+  ku: { dir:'rtl', code:'KU', title:'زانیاری کارت', tag:'بە متمانە و دڵسۆزییەوە', wait:'چاوەڕێ بکە…', checking:'پشکنین…',
+        scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
+        invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە',
+        secure:'پارێزراو و پشتڕاستکراوە', thanks:'سوپاس بۆ متمانەکەت' },
+  ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', tag:'بثقة وإخلاص', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
+        scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
+        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ',
+        secure:'محميّ وموثّق', thanks:'شكراً لثقتك' },
+  en: { dir:'ltr', code:'EN', title:'Card details', tag:'With trust and sincerity', wait:'Please wait…', checking:'Verifying…',
+        scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
+        invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error',
+        secure:'Secured and verified', thanks:'Thank you for your trust' }
+};
+const LANGS = ['ku', 'ar', 'en'];
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { localStorage.setItem(k, v); } catch(e){} } };
+function defaultLang(){
+  const saved = store.get('dwbra_lang'); if (LANGS.includes(saved)) return saved;
+  const nav = (navigator.language || '').toLowerCase();
+  if (nav.startsWith('ar')) return 'ar';
+  if (nav.startsWith('en')) return 'en';
+  return 'ku';
+}
+let lang = defaultLang();
+let state = { kind: 'loading' };
+
+// ناونیشانەکان دەتوانن بە سێ زمان بن: "کوردی | عربي | English"
+function pickHeader(h){
+  const parts = String(h || '').split('|').map(s => s.trim());
+  if (parts.length < 2) return parts[0] || '';
+  return parts[LANGS.indexOf(lang)] || parts[0];
+}
+
+const code = (new URLSearchParams(location.search).get('c') || '').trim();
+const box = document.getElementById('box');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
+const ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>'
+];
+
+function render(){
+  const t = T[lang];
+  document.documentElement.lang = lang === 'ku' ? 'ckb' : lang;
+  document.documentElement.dir = t.dir;
+  document.getElementById('langCode').textContent = t.code;
+  document.querySelectorAll('[data-t]').forEach(el => el.textContent = t[el.dataset.t]);
+  document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
+  const st = document.getElementById('state'), stx = document.getElementById('stateTx');
+
+  if (state.kind === 'loading') {
+    st.className = 'state'; stx.textContent = t.checking;
+    box.innerHTML = '<div class="list"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+    return;
+  }
+  if (state.kind === 'error') {
+    st.className = 'state bad'; stx.textContent = t.error;
+    box.innerHTML = '<div class="msg"><div class="big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 8v5M12 16.5v.01"/><circle cx="12" cy="12" r="9"/></svg></div><b>' + t[state.msg] + '</b></div>';
+    return;
+  }
+
+  const d = state.data;
+  st.className = 'state ok'; stx.textContent = d.status === 'new' ? t.scanned : t.again;
+  const has = i => !(d.values[i] === '' || d.values[i] == null);
+  let html = '';
+  // A، B، E
+  const main = [0, 1, 4].filter(has);
+  if (main.length){
+    html += '<dl class="list">';
+    main.forEach((i, n) => {
+      const h = pickHeader(d.headers[i]);
+      html += '<div class="item' + (i === 4 ? ' price' : '') + '" style="animation-delay:' + (n * 90) + 'ms"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
+              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+    });
+    html += '</dl>';
+  }
+  // C و D
+  const vault = [2, 3].filter(has);
+  if (vault.length){
+    html += '<div class="vault" style="animation-delay:' + (main.length * 90 + 60) + 'ms"><div class="vault-t">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>' + t.vault + '</div>';
+    vault.forEach(i => {
+      const h = pickHeader(d.headers[i]);
+      html += '<div class="vrow"><div class="tx">' + (h ? '<dt>' + esc(h) + '</dt>' : '') +
+              '<dd>' + esc(fmt(d.values[i])) + '</dd></div>' +
+              '<button class="copy" type="button" data-v="' + esc(fmt(d.values[i])) + '">' + t.copy + '</button></div>';
+    });
+    html += '</div>';
+  }
+  box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
+  box.querySelectorAll('.copy').forEach(b => b.onclick = () => {
+    const done = () => { b.textContent = T[lang].copied; b.classList.add('done'); setTimeout(() => { b.textContent = T[lang].copy; b.classList.remove('done'); }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.v).then(done).catch(() => {});
+  });
+}
+
+// ---------- مێنیووی زمان ----------
+const langBtn = document.getElementById('langBtn'), langMenu = document.getElementById('langMenu');
+function toggleMenu(open){ langMenu.hidden = !open; langBtn.setAttribute('aria-expanded', String(open)); }
+langBtn.onclick = e => { e.stopPropagation(); toggleMenu(langMenu.hidden); };
+langMenu.querySelectorAll('[data-lang]').forEach(b => b.onclick = () => {
+  lang = b.dataset.lang; store.set('dwbra_lang', lang); toggleMenu(false); render();
+});
+document.addEventListener('click', () => toggleMenu(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+
+// ---------- هێنانی زانیاری ----------
+function stamp(){
+  const n = new Date(), p = x => String(x).padStart(2, '0');
+  document.getElementById('time').textContent = p(n.getDate()) + '/' + p(n.getMonth() + 1) + '/' + n.getFullYear() + ' · ' + p(n.getHours()) + ':' + p(n.getMinutes());
+}
+function load(){
+  render();
+  if (!code) { state = { kind: 'error', msg: 'invalid' }; render(); return; }
+  history.replaceState(null, '', location.pathname);   // کۆدەکە لە لینکی سەرەوە دەسڕێتەوە
+  fetch(API + '?action=scan&code=' + encodeURIComponent(code))
+    .then(r => r.json())
+    .then(d => {
+      state = d.ok ? { kind: 'ok', data: d } : { kind: 'error', msg: d.error === 'empty' ? 'empty' : 'invalid' };
+      if (d.ok) stamp();
+      render();
+    })
+    .catch(() => { state = { kind: 'error', msg: 'net' }; render(); });
+}
+load();
+</script>
+</body>
+</html>
