@@ -103,11 +103,7 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy.done{background:var(--ok)}
 
 .otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:10px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
-.otp-title{font-size:.85rem;font-weight:800;color:var(--blue-dark);text-align:center}
-.otp-inputs{display:flex;justify-content:center;gap:6px;direction:ltr}
-.otp-input{width:42px;height:48px;font-size:1.3rem;font-weight:800;text-align:center;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none;transition:all .2s}
-.otp-input:focus{border-color:var(--blue);background:var(--card);box-shadow:0 0 0 3px rgba(0,81,255,.15)}
-.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:800;font-size:.95rem;cursor:pointer;transition:background .2s;width:100%;text-align:center}
+.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,81,255,.25)}
 .otp-submit-btn:hover{background:var(--blue-dark)}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
@@ -203,17 +199,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpTitle:'کۆدی OTP داخل بکە (٦ خانە)', otpBtn:'کۆدی OTP' },
+        otpBtn:'کۆدی OTP' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
-        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
+        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقَتِك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpTitle:'أدخل رمز OTP (6 أرقام)', otpBtn:'کۆدی OTP' },
+        otpBtn:'کۆدی OTP' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpTitle:'Enter OTP Code (6 digits)', otpBtn:'کۆدی OTP' }
+        otpBtn:'کۆدی OTP' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -224,7 +220,6 @@ let state = { kind: 'loading' };
 
 const urlParams = new URLSearchParams(location.search);
 const code = (urlParams.get('c') || '').trim();
-const prefilledWorldCode = (urlParams.get('world_code') || urlParams.get('code') || '').trim();
 
 const box = document.getElementById('box');
 const langSelectModal = document.getElementById('langSelectModal');
@@ -317,15 +312,6 @@ function render(){
 
   html += `
     <div class="otp-box-wrapper">
-      <div class="otp-title">${t.otpTitle}</div>
-      <div class="otp-inputs" id="otpInputs">
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" />
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
-        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
-      </div>
       <button type="button" class="otp-submit-btn" id="otpSubmitBtn">${t.otpBtn}</button>
     </div>
   `;
@@ -345,46 +331,13 @@ function render(){
 
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
 
-  const otpInputs = document.querySelectorAll('.otp-input');
-  
-  if (prefilledWorldCode && prefilledWorldCode.length === 6) {
-    for (let i = 0; i < 6; i++) {
-      if (otpInputs[i]) {
-        otpInputs[i].value = prefilledWorldCode[i];
-      }
-    }
-  }
-
-  otpInputs.forEach((input, index) => {
-    input.oninput = (e) => {
-      const val = e.target.value;
-      if (val && index < otpInputs.length - 1) {
-        otpInputs[index + 1].focus();
-      }
-    };
-    input.onkeydown = (e) => {
-      if (e.key === 'Backspace' && !input.value && index > 0) {
-        otpInputs[index - 1].focus();
-      }
-    };
-  });
-
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
   if (otpSubmitBtn) {
     otpSubmitBtn.onclick = () => {
-      let otpCode = '';
-      otpInputs.forEach(inp => otpCode += inp.value);
-      
-      if (otpCode.length < 6) {
-        alert(lang === 'ar' ? 'يرجى إدخال الرمز المكون من 6 أرقام كاملة' : (lang === 'en' ? 'Please enter the full 6-digit code' : 'تکایە ٦ ژمارەکەی کۆدەکە بە تەواوی بنووسە'));
-        return;
-      }
-      
       if (targetLinkURL) {
-        let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + otpCode : targetLinkURL + '?code=' + otpCode;
-        window.open(finalURL, '_blank');
+        window.open(targetLinkURL, '_blank');
       } else {
-        alert(lang === 'ar' ? 'تم تأكيد الرمز بنجاح' : (lang === 'en' ? 'Code verified successfully' : 'کۆدەکە بە سەرکەوتوویی پشتڕاستکرایەوە'));
+        alert(lang === 'ar' ? 'لا يوجد رابط متاح' : (lang === 'en' ? 'No link available' : 'هیچ بەستەرێک بەردەست نییە'));
       }
     };
   }
