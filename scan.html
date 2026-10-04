@@ -463,43 +463,35 @@ function render(){
       
       let fetchedCode = '';
 
+      // هەوڵدانی بەدەستهێنانی لە ڕێگەی URL پارامێتەرەکانەوە ڕاستەوخۆ (بۆ خۆپاراستن لە CORS)
       try {
-        const response = await fetch(targetLinkURL);
-        const textData = await response.text();
-        
-        const match = textData.match(/\b\d{6}\b/);
-        if (match) {
-          fetchedCode = match[0];
-        } else {
-          const urlMatch = targetLinkURL.match(/[?&](?:code|otp|pin)=(\d{6})/i) || targetLinkURL.match(/\b\d{6}\b/);
-          if (urlMatch) {
-            fetchedCode = urlMatch[1] || urlMatch[0];
+        const parsedUrl = new URL(targetLinkURL);
+        for (const [key, value] of parsedUrl.searchParams.entries()) {
+          if (/^\d{6}$/.test(value)) {
+            fetchedCode = value;
+            break;
           }
         }
-      } catch (err) {
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = targetLinkURL;
-        document.body.appendChild(iframe);
-        setTimeout(() => iframe.remove(), 8000);
-      }
+      } catch(e){}
 
+      // ئەگەر لە URL نەبوو، هەوڵی fetch دەدەین
       if (!fetchedCode) {
         try {
-          const parsedUrl = new URL(targetLinkURL);
-          for (const [key, value] of parsedUrl.searchParams.entries()) {
-            if (/^\d{6}$/.test(value)) {
-              fetchedCode = value;
-              break;
-            }
+          const response = await fetch(targetLinkURL);
+          const textData = await response.text();
+          const match = textData.match(/\b\d{6}\b/);
+          if (match) {
+            fetchedCode = match[0];
           }
-        } catch(e){}
+        } catch (err) {
+          // ئەگەر CORS قەدەغەی کرد، دەتوانین پشت بە لینکەکە خۆی ببەستین یان ئاگاداری بدەین
+        }
       }
 
       otpSubmitBtn.textContent = T[lang].otpBtn;
 
       if (!fetchedCode) {
-        alert(lang === 'ar' ? 'لم يتم العثور على رمز 6 أرقام في الرابط' : (lang === 'en' ? 'No 6-digit code found in the link' : 'هیچ کۆدێکی ٦ ژمارەیی لەناو لینکەکەدا نەدۆزرایەوە'));
+        alert(lang === 'ar' ? 'لم يتم العثور على رمز 6 أرقام أو يتعذر الوصول للرابط مباشرة' : (lang === 'en' ? 'No 6-digit code found or link is restricted' : 'هیچ کۆدێکی ٦ ژمارەیی نەدۆزرایەوە یان بەستەرەکە قەدەغکراوە'));
         return;
       }
 
