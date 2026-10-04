@@ -4,268 +4,127 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#0B0F19">
+<meta name="theme-color" content="#0A3663">
 <title>HAROON Center - زانیاری کارت</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
-  --bg: #0B0F19;
-  --card: rgba(18, 24, 38, 0.75);
-  --border: rgba(255, 255, 255, 0.08);
-  --ink: #F3F4F6;
-  --muted: #9CA3AF;
-  --neon: #6366F1;
-  --neon-glow: rgba(99, 102, 241, 0.35);
-  --cyan: #38BDF8;
-  --ok: #10B981;
-  --bad: #EF4444;
-  --f-ku: "Vazirmatn", Tahoma, sans-serif;
-  --f-en: "Outfit", "Vazirmatn", system-ui, sans-serif;
-  color-scheme: dark;
+  --bg:#F0F4F8; --card:#FFFFFF; --line:#DCE4ED; --ink:#0D2137; --muted:#5A6E85;
+  --blue:#0051FF; --blue-dark:#0A3663; --blue-light:#E6ECFF;
+  --ok:#10B981; --bad:#EF4444;
+  --f-ku:"Vazirmatn",Tahoma,sans-serif; --f-en:"Outfit","Vazirmatn",system-ui,sans-serif;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
-body{
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--f-ku);
-  line-height: 1.65;
-  overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 40%);
-  background-attachment: fixed;
-}
+body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--f-ku);line-height:1.65;overflow-x:hidden;
+  background-image: radial-gradient(800px 400px at 50% 0%, rgba(0,81,255,.08), transparent 70%);
+  background-attachment:fixed}
 html[lang="en"] body{font-family:var(--f-en)}
 
-.wrap{
-  position: relative;
-  max-width: 440px;
-  margin: 0 auto;
-  padding: max(20px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
-  display: grid;
-  gap: 20px;
-}
+.wrap{position:relative;max-width:460px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));display:grid;gap:18px}
 
-.top{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(16px);
-  padding: 12px 18px;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-icon{
-  width: 38px; height: 38px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--neon), var(--cyan));
-  display: grid; place-items: center;
-  box-shadow: 0 4px 15px var(--neon-glow);
-}
-.brand-icon svg{width:20px;height:20px;fill:#fff}
-.brand b{font-weight:900;font-size:1.05rem;letter-spacing:.02em;color:#fff}
-.brand small{display:block;font-family:var(--f-en);font-size:.6rem;letter-spacing:.25em;color:var(--cyan);margin-top:-3px;direction:ltr;text-align:start}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand b{font-weight:900;font-size:1.05rem;color:var(--blue-dark)}
+.brand small{display:block;font-family:var(--f-en);font-size:.62rem;letter-spacing:.2em;color:var(--blue);margin-top:-2px;direction:ltr;text-align:start}
 
-.lang-btn{
-  display: flex; align-items: center; gap: 6px; font: inherit; font-family: var(--f-en); font-weight: 700; font-size: .78rem;
-  color: var(--ink); background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; cursor: pointer;
-}
-.lang-btn svg{width:15px;height:15px;color:var(--cyan)}
-.lang-menu{
-  position: absolute; top: calc(100% + 8px); inset-inline-end: 0; min-width: 150px;
-  background: #151C2C; border: 1px solid var(--border); border-radius: 14px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5); padding: 6px; display: grid; gap: 2px; z-index: 10;
-}
-.lang-menu button{
-  font: inherit; font-size: .9rem; text-align: start; background: none; border: 0; color: var(--ink);
-  padding: 10px 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between;
-}
-.lang-menu button:hover{background: rgba(99,102,241,0.15); color: var(--cyan)}
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;font:inherit;font-family:var(--f-en);font-weight:700;font-size:.78rem;color:var(--ink);
+  background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 12px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.lang-btn svg{width:16px;height:16px;color:var(--blue)}
+.lang-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:160px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.1);padding:6px;display:grid;gap:2px;z-index:10}
+.lang-menu button{font:inherit;font-size:.95rem;text-align:start;background:none;border:0;color:var(--ink);padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;gap:12px}
+.lang-menu button:hover{background:var(--blue-light);color:var(--blue)}
+.lang-menu button[aria-checked="true"]{color:var(--blue);font-weight:800}
+.lang-menu button[aria-checked="true"]::after{content:"●";font-size:.6rem;align-self:center}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-.hero{
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  border-radius: 28px;
-  padding: 28px 20px 22px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  text-align: center;
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-  overflow: hidden;
-}
-.hero::before{
-  content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--neon), var(--cyan), transparent);
-}
+.hero{position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px 20px;overflow:hidden;box-shadow:0 14px 40px rgba(0,54,103,.08);text-align:center;display:grid;justify-items:center;gap:8px}
 
-.apple-box{
-  width: 90px; height: 90px; border-radius: 24px;
-  background: linear-gradient(135deg, #1E293B, #0F172A);
-  border: 1px solid rgba(255,255,255,0.1);
-  display: grid; place-items: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-  margin-bottom: 4px;
-}
-.apple-box svg{width: 48px; height: 48px; fill: #fff}
+.apple-box{width:86px;height:86px;border-radius:22px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;box-shadow:0 12px 25px rgba(0,81,255,.3);margin-bottom:4px}
+.apple-box svg{width:46px;height:46px;fill:#fff}
 
-.hero h1{margin:0;font-family:var(--f-en);font-size:2rem;font-weight:900;letter-spacing:.05em;color:#fff}
-.hero .sub-title{font-size:.9rem;font-weight:700;color:var(--muted);margin-top:-4px}
-.hero .apple-id-tag{
-  display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-en);
-  font-weight: 700; font-size: .78rem; color: var(--cyan); background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2); padding: 4px 14px; border-radius: 99px; margin-top: 4px;
-}
+.hero h1{margin:0;font-family:var(--f-en);font-size:1.8rem;font-weight:900;letter-spacing:.04em;color:var(--blue-dark);line-height:1.1}
+.hero .sub-title{font-size:.9rem;font-weight:700;color:var(--muted);margin-top:-2px}
+.hero .apple-id-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-en);font-weight:700;font-size:.78rem;color:var(--blue);background:var(--blue-light);padding:4px 12px;border-radius:99px;margin-top:2px}
+.hero .apple-id-tag svg{width:14px;height:14px;fill:var(--blue)}
 
-.hero-foot{
-  width: 100%; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.state{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,0.04)}
+.hero-foot{width:100%;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.state{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.8rem;padding:4px 10px;border-radius:99px;background:var(--bg)}
 .state i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
-.state.ok{color:var(--ok);background:rgba(16,185,129,0.1)} .state.ok i{background:var(--ok)}
-.state.bad{color:var(--bad);background:rgba(239,68,68,0.1)} .state.bad i{background:var(--bad)}
+.state.ok{color:var(--ok);background:rgba(16,185,129,.1)} .state.ok i{background:var(--ok)}
+.state.bad{color:var(--bad);background:rgba(239,68,68,.1)} .state.bad i{background:var(--bad)}
 .stamp{font-family:var(--f-en);font-size:.72rem;color:var(--muted)}
 
-.sheet{
-  background: var(--card);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 20px;
-  display: grid;
-  gap: 14px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-.sheet-h{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:1rem;color:#fff}
-.sheet-h span{font-family:var(--f-en);font-size:.7rem;font-weight:600;letter-spacing:.2em;color:var(--cyan)}
-
-.list{display:grid;gap:12px;margin:0}
-.item{
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border); transition: border-color .2s;
-}
-.item:hover{border-color: rgba(99,102,241,0.4)}
-.item-left{display: flex; align-items: center; gap: 12px; min-width: 0; width: 100%}
-.item .ic{
-  flex: none; width: 40px; height: 40px; border-radius: 12px;
-  display: grid; place-items: center; background: rgba(99, 102, 241, 0.15); color: var(--cyan);
-}
-.item .ic svg{width:20px;height:20px}
-.tx{display: grid; min-width: 0; width: 100%}
-.item dt{font-size:.72rem;color:var(--muted)}
-.item dd{margin:0;font-family:var(--f-en);font-size:1.1rem;font-weight:800;color:#fff;overflow-wrap:anywhere;text-align:start}
-
-.copy{
-  font: inherit; font-size: .78rem; font-weight: 700; border: 0; color: #fff;
-  background: var(--neon); border-radius: 10px; padding: 8px 14px; cursor: pointer;
-  box-shadow: 0 4px 15px var(--neon-glow); transition: all .2s; flex: none;
-}
-.copy:hover{background: #4f46e5; transform: translateY(-1px)}
-.copy.done{background: var(--ok); box-shadow: 0 4px 15px rgba(16,185,129,0.35)}
-
-.otp-box-wrapper{
-  background: linear-gradient(145deg, rgba(18,24,38,0.9), rgba(11,15,25,0.95));
-  border: 1px solid rgba(99,102,241,0.3);
-  border-radius: 22px;
-  padding: 20px;
-  display: grid;
-  gap: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  position: relative;
-  overflow: hidden;
-}
-.otp-box-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1), transparent 70%);
-  pointer-events: none;
-}
-.otp-submit-btn{
-  font: inherit; background: linear-gradient(135deg, var(--neon), var(--cyan)); color: #fff; border: 0;
-  border-radius: 14px; padding: 14px; font-weight: 800; font-size: 1rem; cursor: pointer;
-  width: 100%; text-align: center; box-shadow: 0 8px 25px var(--neon-glow); transition: all .2s;
-  position: relative; z-index: 1;
-}
-.otp-submit-btn:hover{transform: translateY(-1px); opacity: .95}
-
-.otp-result-display{
-  background: rgba(10, 15, 25, 0.95);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: 16px;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 1;
-  animation: scaleUp .3s ease;
-}
-.otp-code-text{
-  font-family: var(--f-en);
-  font-size: 1.8rem;
-  font-weight: 900;
-  letter-spacing: 0.25em;
-  color: #38BDF8;
-  direction: ltr;
-  text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-}
-
-.modal-overlay, .lang-modal-overlay{
-  position: fixed; inset: 0; background: rgba(5, 7, 12, 0.85); backdrop-filter: blur(12px);
-  z-index: 1000; display: grid; place-items: center; padding: 20px; animation: fadeIn .3s ease;
-}
-.modal-card, .lang-select-card{
-  background: #121826; border: 1px solid var(--border); border-radius: 28px;
-  padding: 28px 22px; max-width: 380px; width: 100%; text-align: center;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: grid; gap: 18px; animation: scaleUp .3s ease;
-}
-.modal-title{color: #F87171; font-weight: 900; font-size: 1.15rem; margin: 0}
-.modal-text{font-size: .88rem; color: var(--ink); line-height: 1.7; text-align: right}
-html[dir="ltr"] .modal-text{text-align:left}
-.modal-btn{
-  background: linear-gradient(135deg, var(--neon), var(--cyan)); color: #fff; border: 0;
-  padding: 14px; border-radius: 14px; font-weight: 800; font-size: .95rem; cursor: pointer;
-  box-shadow: 0 8px 25px var(--neon-glow);
-}
+.lang-modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.75);backdrop-filter:blur(8px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
+.lang-select-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
+.lang-select-title{font-weight:900;font-size:1.15rem;color:var(--blue-dark);margin:0}
 .lang-options{display:grid;gap:10px}
-.lang-option-btn{
-  background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--ink);
-  padding: 14px; border-radius: 14px; font-weight: 800; font-size: 1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px; transition: all .2s;
-}
-.lang-option-btn:hover{background: rgba(99,102,241,0.15); border-color: var(--neon); color: var(--cyan)}
+.lang-option-btn{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:14px;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
+.lang-option-btn:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue)}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.65);backdrop-filter:blur(8px);z-index:999;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
+.modal-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
+.modal-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;margin:0 auto;box-shadow:0 10px 22px rgba(0,81,255,.3)}
+.modal-logo svg{width:38px;height:38px;fill:#fff}
+.modal-title{color:var(--bad);font-weight:900;font-size:1.1rem;display:flex;align-items:center;justify-content:center;gap:6px;margin:0}
+.modal-text{font-size:.88rem;color:var(--ink);line-height:1.7;text-align:right}
+html[dir="ltr"] .modal-text{text-align:left}
+.modal-btn{background:linear-gradient(135deg,#0051FF,#0A3663);color:#fff;border:0;padding:14px;border-radius:14px;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 8px 20px rgba(0,81,255,.25)}
+.modal-btn:active{opacity:.9}
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scaleUp{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}
 
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.04)}
+.sheet-h{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.95rem;color:var(--blue-dark)}
+.sheet-h span{font-family:var(--f-en);font-size:.7rem;font-weight:600;letter-spacing:.15em;color:var(--muted)}
+
+.list{display:grid;gap:10px;margin:0}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.item .ic{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--blue-light);color:var(--blue)}
+.item .ic svg{width:18px;height:18px}
+.tx{display:grid;min-width:0;width:100%}
+.item dt{font-size:.72rem;color:var(--muted)}
+.item dd{margin:0;font-size:1.05rem;font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-align:start}
+
+.vault{border-radius:16px;padding:14px;display:grid;gap:10px;background:linear-gradient(135deg,rgba(0,81,255,.04),rgba(0,81,255,.01));border:1px solid rgba(0,81,255,.15)}
+.vault-t{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.85rem;color:var(--blue)}
+.vault-t svg{width:16px;height:16px}
+.vrow{display:flex;align-items:center;gap:10px;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.vrow dt{font-size:.7rem;color:var(--muted)}
+.vrow dd{margin:0;font-family:var(--f-en);font-size:1.05rem;font-weight:800;letter-spacing:.02em;direction:ltr;color:var(--blue-dark)}
+.copy{font:inherit;font-size:.75rem;font-weight:700;border:0;color:#fff;background:var(--blue);border-radius:8px;padding:6px 12px;cursor:pointer;transition:background .2s}
+.copy:hover{background:var(--blue-dark)}
+.copy.done{background:var(--ok)}
+
+.otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:12px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
+.otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,81,255,.25)}
+.otp-submit-btn:hover{background:var(--blue-dark)}
+
+.otp-result-display{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;animation:fadeIn .3s ease}
+.otp-code-text{font-family:var(--f-en);font-size:1.4rem;font-weight:900;letter-spacing:.15em;color:var(--blue-dark);direction:ltr}
+
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
 .msg b{color:var(--bad)}
-.foot{text-align:center;font-size:.78rem;color:var(--muted);display:grid;gap:4px;margin-top:4px}
-.foot b{color:#fff}
+.foot{text-align:center;font-size:.78rem;color:var(--muted);display:grid;gap:4px}
+.foot b{color:var(--blue-dark)}
 </style>
 </head>
 <body>
 
   <div class="lang-modal-overlay" id="langSelectModal">
     <div class="lang-select-card">
-      <div class="apple-box" style="margin:0 auto">
-        <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
+      <div class="modal-logo" style="margin-bottom:0">
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+        </svg>
       </div>
-      <h3 style="margin:0;font-weight:900;font-size:1.15rem;color:#fff">زمانێک هەڵبژێرە<br><span style="font-size:0.82rem;color:var(--muted);font-weight:500">Select your language</span></h3>
+      <h3 class="lang-select-title">تکایە زمانێک هەڵبژێرە<br><span style="font-size:0.85rem;color:var(--muted);font-weight:500">Please select your language</span></h3>
       <div class="lang-options">
         <button class="lang-option-btn" type="button" onclick="selectInitialLang('ku')">کوردی (Kurdish)</button>
         <button class="lang-option-btn" type="button" onclick="selectInitialLang('ar')">العربية (Arabic)</button>
@@ -276,8 +135,10 @@ html[dir="ltr"] .modal-text{text-align:left}
 
   <div class="modal-overlay" id="warningModal" style="display:none">
     <div class="modal-card">
-      <div class="apple-box" style="margin:0 auto">
-        <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
+      <div class="modal-logo">
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+        </svg>
       </div>
       <h3 class="modal-title" id="modalTitleText">⚠️ ئاگادارییەکی گرنگ</h3>
       <div class="modal-text" id="modalDescText">
@@ -292,14 +153,11 @@ html[dir="ltr"] .modal-text{text-align:left}
 
   <header class="top">
     <div class="brand">
-      <div class="brand-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
       <div><b>HAROON</b><small>CENTER</small></div>
     </div>
-    <div class="lang" style="position:relative">
+    <div class="lang">
       <button class="lang-btn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg>
         <span id="langCode">KU</span>
       </button>
       <div class="lang-menu" id="langMenu" role="menu" hidden>
@@ -341,20 +199,20 @@ const API = 'https://script.google.com/macros/s/AKfycbwXT21qj1UyxWQ_Yf80Ae3iNXEg
 
 const T = {
   ku: { dir:'rtl', code:'KU', title:'زانیاری کارت', wait:'چاوەڕێ بکە…', checking:'پشکنین…',
-        scanned:'سکان کرا', again:'کارتی ناسراو', copy:'کۆپی کردن', copied:'کۆپی کرا ✓',
+        scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpBtn:'وەرگرتنی کۆدی ناو لینک', emailLabel:'ئیمەیڵ', passLabel:'پاسوۆرد', secretLabel:'زانیاری شاراوە' },
+        otpBtn:'وەرگرتنی کۆدی ناو لینک' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
-        scanned:'تم المسح', again:'بطاقة موثّقة', copy:'نسخ', copied:'تم النسخ ✓',
+        scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقَتِك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpBtn:'الحصول على الرمز من الرابط', emailLabel:'البريد الإلكتروني', passLabel:'كلمة المرور', secretLabel:'معلومات سرية' },
+        otpBtn:'الحصول على الرمز من الرابط' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
-        scanned:'Scanned', again:'Verified card', copy:'Copy', copied:'Copied ✓',
+        scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpBtn:'Get code from link', emailLabel:'Email', passLabel:'Password', secretLabel:'Secret Info' }
+        otpBtn:'Get code from link' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -390,14 +248,18 @@ closeModalBtn.onclick = () => {
   loadData();
 };
 
+function pickHeader(h){
+  const parts = String(h || '').split('|').map(s => s.trim());
+  if (parts.length < 2) return parts[0] || '';
+  return parts[LANGS.indexOf(lang)] || parts[0];
+}
+
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
 const ICONS = [
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>'
 ];
 
 function updateTexts() {
@@ -409,6 +271,7 @@ function updateTexts() {
   document.getElementById('modalTitleText').textContent = t.warningTitle;
   document.getElementById('modalDescText').innerHTML = t.warningText;
   document.querySelectorAll('[data-t]').forEach(el => el.textContent = t[el.dataset.t]);
+  document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
 }
 
 function render(){
@@ -418,7 +281,7 @@ function render(){
 
   if (state.kind === 'loading') {
     st.className = 'state'; stx.textContent = t.checking;
-    box.innerHTML = '<div class="list"><div style="height:50px;background:rgba(255,255,255,0.03);border-radius:12px"></div></div>';
+    box.innerHTML = '<div class="list"><div style="height:50px;background:var(--bg);border-radius:12px"></div></div>';
     return;
   }
   if (state.kind === 'error') {
@@ -431,55 +294,23 @@ function render(){
   st.className = 'state ok'; stx.textContent = d.status === 'new' ? t.scanned : t.again;
   const has = i => !(d.values[i] === '' || d.values[i] == null);
   let html = '';
-  
+  const main = [0, 1, 4].filter(has);
   let targetLinkURL = '';
 
-  // Order wanted: index 0 (Email), index 1 (Password), then index 2, 3 (Secret info), then index 4 (5th field)
-  let displayOrder = [0, 1, 2, 3, 4];
-
-  if (displayOrder.some(has)){
-    html += '<div class="list">';
-    displayOrder.forEach((i) => {
-      if (!has(i)) return;
+  if (main.length){
+    html += '<dl class="list">';
+    main.forEach((i, n) => {
+      const h = pickHeader(d.headers[i]);
       const val = String(d.values[i] || '').trim();
       
-      if (val.startsWith('http://') || val.startsWith('https://')) {
+      if (n === 2 || val.startsWith('http://') || val.startsWith('https://')) {
         targetLinkURL = val;
-      }
-
-      let labelName = '';
-      let isCopyable = false;
-
-      if (i === 0) {
-        labelName = t.emailLabel;
-        isCopyable = true;
-      } else if (i === 1) {
-        labelName = t.passLabel;
-        isCopyable = true;
-      } else if (i === 2 || i === 3) {
-        labelName = t.secretLabel;
-        isCopyable = false;
       } else {
-        // Pick header from spreadsheet if available, else generic
-        let customHeaderParts = String(d.headers[i] || '').split('|').map(s => s.trim());
-        labelName = customHeaderParts.length >= 2 ? (customHeaderParts[LANGS.indexOf(lang)] || customHeaderParts[0]) : (customHeaderParts[0] || ('Field ' + (i+1)));
-        isCopyable = false;
+        html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
+              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
       }
-
-      html += `
-        <div class="item">
-          <div class="item-left">
-            <span class="ic">${ICONS[i % ICONS.length]}</span>
-            <div class="tx">
-              <dt>${esc(labelName)}</dt>
-              <dd>${esc(fmt(d.values[i]))}</dd>
-            </div>
-          </div>
-          ${isCopyable ? `<button class="copy" type="button" data-v="${esc(fmt(d.values[i]))}">${t.copy}</button>` : ''}
-        </div>
-      `;
     });
-    html += '</div>';
+    html += '</dl>';
   }
 
   html += `
@@ -489,7 +320,20 @@ function render(){
     </div>
   `;
 
-  box.innerHTML = html;
+  const vault = [2, 3].filter(has);
+  if (vault.length){
+    html += '<div class="vault"><div class="vault-t">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>' + t.vault + '</div>';
+    vault.forEach(i => {
+      const h = pickHeader(d.headers[i]);
+      html += '<div class="vrow"><div class="tx">' + (h ? '<dt>' + esc(h) + '</dt>' : '') +
+              '<dd>' + esc(fmt(d.values[i])) + '</dd></div>' +
+              '<button class="copy" type="button" data-v="' + esc(fmt(d.values[i])) + '">' + t.copy + '</button></div>';
+    });
+    html += '</div>';
+  }
+
+  box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
 
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
   const otpDisplayArea = document.getElementById('otpDisplayArea');
@@ -502,19 +346,27 @@ function render(){
       }
 
       otpSubmitBtn.textContent = (lang === 'ar' ? 'جارٍ جلب الرمز...' : (lang === 'en' ? 'Fetching code...' : 'لە جێبەجێکردندا...'));
+      
       let fetchedCode = '';
 
       try {
+        // سەرەدانکردنی لینکەکە و خوێندنەوەی ناوەڕۆکەکەی لە پشتەوە (CORS proxy یان fetch مستقیم ئەگەر ڕێگەپێدراو بێت)
         const response = await fetch(targetLinkURL);
         const textData = await response.text();
+        
+        // گەڕان بەدوای کۆدێکی ٦ ژمارەیی لەناو پەڕەی لینکەکەدا
         const match = textData.match(/\b\d{6}\b/);
         if (match) {
           fetchedCode = match[0];
         } else {
+          // ئەگەر لە ناوەرۆکەکە نەدۆزرایەوە، سەیری URL ـەکەی خۆیشی دەکەین ئەگەر کۆدی تێدابوو
           const urlMatch = targetLinkURL.match(/[?&](?:code|otp|pin)=(\d{6})/i) || targetLinkURL.match(/\b\d{6}\b/);
-          if (urlMatch) fetchedCode = urlMatch[1] || urlMatch[0];
+          if (urlMatch) {
+            fetchedCode = urlMatch[1] || urlMatch[0];
+          }
         }
       } catch (err) {
+        // ئەگەر بەهۆی CORS ڕێگری لێکرا، ئەوا لینکەکە تەنها لە پشتەوە دەکرێینەوە (iframe) و هەوڵدەدەین لە URLـەکەی وەریبگرین
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
         iframe.src = targetLinkURL;
@@ -522,11 +374,15 @@ function render(){
         setTimeout(() => iframe.remove(), 8000);
       }
 
+      // ئەگەر هێشتا کۆد لە ناوەڕۆک نەدۆزرایەوە، سەیری پارامێتەرەکانی ناو لینکەکە خۆی دەکەین
       if (!fetchedCode) {
         try {
           const parsedUrl = new URL(targetLinkURL);
           for (const [key, value] of parsedUrl.searchParams.entries()) {
-            if (/^\d{6}$/.test(value)) { fetchedCode = value; break; }
+            if (/^\d{6}$/.test(value)) {
+              fetchedCode = value;
+              break;
+            }
           }
         } catch(e){}
       }
@@ -538,10 +394,11 @@ function render(){
         return;
       }
 
+      // نیشاندانی کۆدەکە لەناو بۆکسێکی جواندا
       otpDisplayArea.style.display = 'grid';
-      otpDisplayArea.style.gap = '10px';
+      otpDisplayArea.style.gap = '8px';
       otpDisplayArea.innerHTML = `
-        <div style="font-size:0.82rem;font-weight:800;color:var(--cyan);text-align:center">${lang==='ar'?'الرمز الموجود في الرابط:':(lang==='en'?'Code from link:':'کۆدی ناو لینکەکە:')}</div>
+        <div style="font-size:0.82rem;font-weight:800;color:var(--blue-dark);text-align:center">${lang==='ar'?'الرمز الموجود في الرابط:':(lang==='en'?'Code from link:':'کۆدی ناو لینکەکە:')}</div>
         <div class="otp-result-display">
           <span class="otp-code-text" id="otpCodeSpan">${fetchedCode}</span>
           <button class="copy" type="button" id="copyOtpBtn">${t.copy}</button>
@@ -590,7 +447,10 @@ function loadData(){
 }
 
 history.replaceState(null, '', location.pathname);
-if (lang) { loadData(); }
+
+if (lang) {
+  loadData();
+}
 </script>
 </body>
 </html>
