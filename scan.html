@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
-  --bg:#06161B; --panel:#0F2A32; --line:rgba(47,179,196,.3);
-  --ink:#EEF5F6; --muted:#8FA9B0; --teal:#2FB3C4; --teal-dark:#0E6B7A;
+  --bg:#06161B; --panel:#0F2A32; --line:rgba(255,255,255,.09);
+  --ink:#EEF5F6; --muted:#8FA9B0; --teal:#2FB3C4;
   --gold:#E6B858; --gold-2:#F6D88C; --ok:#4FD18B; --bad:#FF8A80;
   --f-ku:"Vazirmatn",Tahoma,sans-serif;
   color-scheme:dark;
@@ -19,47 +19,31 @@
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--f-ku);line-height:1.65;padding:18px 16px;display:grid;place-items:start center}
 .wrap{width:100%;max-width:460px;display:grid;gap:18px}
+.hero{position:relative;border-radius:22px;padding:22px 20px;background:linear-gradient(140deg,#0F4652 0%,#0A2F37 45%,#071D22 100%);border:1px solid rgba(246,216,140,.25);text-align:center;display:grid;gap:10px}
+.hero h1{margin:0;font-size:1.5rem;font-weight:900;color:#fff}
+.account-badge{display:inline-block;background:rgba(255,255,255,.07);padding:6px 16px;border-radius:99px;font-weight:800;font-size:.95rem;color:var(--gold-2);border:1px solid var(--line)}
 
-.hero{position:relative;border-radius:22px;padding:22px 20px;background:linear-gradient(140deg,#0F4652 0%,#0A2F37 45%,#071D22 100%);border:1px solid var(--line);text-align:center;display:grid;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,.4)}
-.brand-icon{width:64px;height:64px;margin:0 auto;background:radial-gradient(circle,#2FB3C4 0%,#0A2F37 70%);border-radius:50%;display:grid;place-items:center;border:2px solid var(--gold);box-shadow:0 0 15px rgba(47,179,196,.4)}
-.brand-icon svg{width:34px;height:34px;fill:#fff}
-.brand-title{margin:0;font-size:1.2rem;font-weight:900;letter-spacing:.05em;color:#fff}
-.account-badge{display:inline-block;background:rgba(255,255,255,.07);padding:6px 20px;border-radius:99px;font-weight:800;font-size:1.05rem;color:var(--gold-2);border:1px solid var(--line)}
-
-.warning-box{background:rgba(255,138,128,.06);border:1px solid rgba(255,138,128,.3);border-radius:18px;padding:16px;display:grid;gap:10px;text-align:right}
+.warning-box{background:rgba(255,138,128,.08);border:1px solid rgba(255,138,128,.3);border-radius:18px;padding:16px;display:grid;gap:10px;text-align:right}
 .warning-title{color:var(--bad);font-weight:900;font-size:1rem;display:flex;align-items:center;gap:6px}
-.warning-text{font-size:.82rem;color:#ddd;line-height:1.7}
+.warning-text{font-size:.85px;color:#ddd;line-height:1.7}
 
-.timer-btn{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--muted);padding:12px;border-radius:12px;font-weight:800;font-size:.95rem;text-align:center}
+.timer-btn{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink);padding:12px;border-radius:12px;font-weight:800;font-size:.95rem;text-align:center;cursor:not-allowed}
 
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:14px;box-shadow:0 12px 35px rgba(0,0,0,.4)}
-.field-group{display:grid;gap:4px}
-.field-label{font-size:.8rem;color:var(--muted);text-align:right}
-
-.input-box{display:flex;align-items:center;background:rgba(6,22,27,.8);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.input-box input{width:100%;background:none;border:0;color:#fff;font-size:1rem;font-weight:700;padding:10px 14px;outline:none;direction:ltr;text-align:left}
-.copy-btn{background:rgba(47,179,196,.15);border:0;color:var(--teal);font-weight:800;font-size:.85rem;padding:0 16px;height:100%;cursor:pointer;border-inline-start:1px solid var(--line);transition:.2s}
-.copy-btn:active{background:var(--teal);color:#000}
-.copy-btn.done{background:var(--ok);color:#000}
-
-.action-btn{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border:0;color:#fff;font-weight:800;font-size:.95rem;padding:14px;border-radius:12px;cursor:pointer;text-align:center;box-shadow:0 6px 20px rgba(47,179,196,.3)}
-.action-btn:active{transform:scale(.98)}
-
-.extra-box{background:rgba(6,22,27,.6);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.85rem;cursor:pointer}
-.extra-box b{color:#fff}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px}
+.item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+dt{color:var(--muted);font-size:.8rem}
+dd{margin:0;font-weight:700;font-size:1.05rem}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <div class="brand-icon">
-      <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
-    </div>
-    <h1 class="brand-title">COMPANY DU BRA</h1>
+    <h1>COMPANY DU BRA</h1>
     <div><span class="account-badge" id="accBox">ئەکاونت: ...</span></div>
   </section>
 
-  <!-- بەشی ئاگاداری و چاوەڕوانی ۵ چرکە -->
+  <!-- بەشی ئاگاداری و چاوەڕوانی -->
   <section class="warning-box" id="warningSection">
     <div class="warning-title">⚠️ ئاگادارییەکی گرنگ</div>
     <div class="warning-text">
@@ -69,38 +53,10 @@ body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family
     <div class="timer-btn" id="timerBtn">چاوەڕوان بە (5)...</div>
   </section>
 
-  <!-- بەشی زانیارییەکان کە دوای ۵ چرکە دەردەکەون -->
+  <!-- زانیارییەکان کە سەرەتای لادەبرێن تا کاتەکە تەواو دەبێت -->
   <section class="sheet" id="dataSection" style="display:none;">
-    <div class="field-group">
-      <div class="field-label">ئیمەیل (Email)</div>
-      <div class="input-box">
-        <input type="text" id="emailVal" readonly value="...">
-        <button class="copy-btn" onclick="copyText('emailVal', this)">کۆپی</button>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <div class="field-label">پاسۆرد (Password)</div>
-      <div class="input-box">
-        <input type="text" id="passVal" readonly value="...">
-        <button class="copy-btn" onclick="copyText('passVal', this)">کۆپی</button>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <div class="field-label">کۆدی دلّنایی</div>
-      <div class="input-box">
-        <input type="text" id="codeVal" readonly value="------">
-        <button class="copy-btn" onclick="copyText('codeVal', this)">کۆپی</button>
-      </div>
-    </div>
-
-    <button class="action-btn">وەرگرتنی کۆدی دلّنایی</button>
-
-    <div class="extra-box">
-      <span>پێشان دانی زانیارییە شاراوەکان <br><small>(روز / ژمارە)</small></span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-    </div>
+    <b>زانیاری کارت</b>
+    <div id="box"></div>
   </section>
 </div>
 
@@ -112,6 +68,8 @@ let timeLeft = 5;
 const timerBtn = document.getElementById('timerBtn');
 const warningSection = document.getElementById('warningSection');
 const dataSection = document.getElementById('dataSection');
+const accBox = document.getElementById('accBox');
+const box = document.getElementById('box');
 
 function startCountdown() {
   const interval = setInterval(() => {
@@ -120,41 +78,39 @@ function startCountdown() {
       timerBtn.textContent = `چاوەڕوان بە (${timeLeft})...`;
     } else {
       clearInterval(interval);
-      warningSection.style.display = 'none';
-      dataSection.style.display = 'grid';
+      warningSection.style.display = 'none'; // لادانی ئاگادارییەکە
+      dataSection.style.display = 'grid';   // نیشاندانی زانیارییەکان
       fetchData();
     }
   }, 1000);
 }
 
 function fetchData() {
-  if (!code) return;
+  if (!code) {
+    box.innerHTML = '<div>ئەم QR کۆدە دروست نییە</div>';
+    return;
+  }
   fetch(API + '?action=scan&c=' + encodeURIComponent(code))
     .then(r => r.json())
     .then(d => {
-      if (!d.ok) return;
-      document.getElementById('accBox').textContent = 'ئەکاونت: ' + (d.values[0] || '---');
-      if(d.values[1]) document.getElementById('emailVal').value = d.values[1];
-      if(d.values[2]) document.getElementById('passVal').value = d.values[2];
-      if(d.values[3]) document.getElementById('codeVal').value = d.values[3];
+      if (!d.ok) {
+        box.innerHTML = '<div>هەڵە لە هێنانی زانیاری</div>';
+        return;
+      }
+      accBox.textContent = 'ئەکاونت: ' + (d.values[0] || '---');
+      let html = '';
+      for (let c = 0; c < 5; c++) {
+        if (!d.values[c]) continue;
+        html += `<div class="item"><dt>${d.headers[c] || ''}</dt><dd>${d.values[c]}</dd></div>`;
+      }
+      box.innerHTML = html;
     })
-    .catch(() => {});
-}
-
-function copyText(elementId, btn) {
-  const input = document.getElementById(elementId);
-  navigator.clipboard.writeText(input.value).then(() => {
-    btn.textContent = 'کۆپی کرا ✓';
-    btn.classList.add('done');
-    setTimeout(() => {
-      btn.textContent = 'کۆپی';
-      btn.classList.remove('done');
-    }, 1500);
-  });
+    .catch(() => {
+      box.innerHTML = '<div>پەیوەندی نەکرا</div>';
+    });
 }
 
 startCountdown();
 </script>
 </body>
 </html>
-```[cite: 2, 3]
