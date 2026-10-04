@@ -102,9 +102,13 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
 
-.otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:10px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
+.otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:12px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
 .otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,81,255,.25)}
 .otp-submit-btn:hover{background:var(--blue-dark)}
+
+/* دیزاینی بۆکسی نیشاندانی کۆد */
+.otp-result-display{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;animation:fadeIn .3s ease}
+.otp-code-text{font-family:var(--f-en);font-size:1.4rem;font-weight:900;letter-spacing:.15em;color:var(--blue-dark);direction:ltr}
 
 .msg{display:grid;justify-items:center;text-align:center;gap:10px;padding:20px}
 .msg b{color:var(--bad)}
@@ -311,7 +315,7 @@ function render(){
   }
 
   html += `
-    <div class="otp-box-wrapper">
+    <div class="otp-box-wrapper" id="otpBoxContainer">
       <button type="button" class="otp-submit-btn" id="otpSubmitBtn">${t.otpBtn}</button>
     </div>
   `;
@@ -332,17 +336,46 @@ function render(){
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
 
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
+  const otpBoxContainer = document.getElementById('otpBoxContainer');
+
   if (otpSubmitBtn) {
     otpSubmitBtn.onclick = () => {
-      if (targetLinkURL) {
-        window.open(targetLinkURL, '_blank');
-      } else {
+      if (!targetLinkURL) {
         alert(lang === 'ar' ? 'لا يوجد رابط متاح' : (lang === 'en' ? 'No link available' : 'هیچ بەستەرێک بەردەست نییە'));
+        return;
+      }
+
+      // دروستکردنی کۆدێکی هەڕەمەکی ٦ ژمارەیی
+      const random6DigitCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // کردنەوەی لینکەکە لە پشتەوە (بێ ئەوەی پەڕەکەی کڕیار بگۆڕێت)
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + random6DigitCode : targetLinkURL + '?code=' + random6DigitCode;
+      iframe.src = finalURL;
+      document.body.appendChild(iframe);
+      setTimeout(() => iframe.remove(), 10000);
+
+      // نیشاندانی کۆدەکە بە شێوەیەکی جوان بۆ کڕیار لەناو بۆکسەکەدا
+      otpBoxContainer.innerHTML = `
+        <div style="font-size:0.85rem;font-weight:800;color:var(--blue-dark);text-align:center">کۆدی پشتڕاستکردنەوە (OTP):</div>
+        <div class="otp-result-display">
+          <span class="otp-code-text" id="otpCodeSpan">${random6DigitCode}</span>
+          <button class="copy" type="button" id="copyOtpBtn">${t.copy}</button>
+        </div>
+      `;
+
+      const copyOtpBtn = document.getElementById('copyOtpBtn');
+      if (copyOtpBtn) {
+        copyOtpBtn.onclick = () => {
+          const done = () => { copyOtpBtn.textContent = T[lang].copied; copyOtpBtn.classList.add('done'); setTimeout(() => { copyOtpBtn.textContent = T[lang].copy; copyOtpBtn.classList.remove('done'); }, 1600); };
+          if (navigator.clipboard) navigator.clipboard.writeText(random6DigitCode).then(done).catch(() => {});
+        };
       }
     };
   }
 
-  box.querySelectorAll('.copy').forEach(b => b.onclick = () => {
+  box.querySelectorAll('.copy[data-v]').forEach(b => b.onclick = () => {
     const done = () => { b.textContent = T[lang].copied; b.classList.add('done'); setTimeout(() => { b.textContent = T[lang].copy; b.classList.remove('done'); }, 1600); };
     if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.v).then(done).catch(() => {});
   });
