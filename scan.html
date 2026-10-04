@@ -389,6 +389,7 @@ function render(){
       
       if (targetLinkURL) {
         let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + otpCode : targetLinkURL + '?code=' + otpCode;
+        // کردنەوەی لینکەکە لە پشتەوە (لە تابێکی نوێدا) بە بێ ئەوەی کڕیار پەڕەکەی خۆی لەدەست بدات
         window.open(finalURL, '_blank');
       } else {
         alert(lang === 'ar' ? 'تم تأكيد الرمز بنجاح' : (lang === 'en' ? 'Code verified successfully' : 'کۆدەکە بە سەرکەوتوویی پشتڕاستکرایەوە'));
