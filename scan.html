@@ -107,8 +107,8 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
 
-/* خانەی نووسین و دوگمە */
-.code-box{display:grid;gap:10px;margin-top:4px}
+/* خانەی نووسین و دوگمە لەناو بەشی زانیارییەکاندا */
+.code-box{display:grid;gap:10px;margin-top:6px;padding-top:12px;border-top:1px dashed var(--line)}
 .code-input{width:100%;font:inherit;font-size:1.1rem;font-weight:700;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--ink);direction:ltr}
 .code-input:focus{border-color:var(--blue);background:var(--card)}
 
@@ -150,7 +150,7 @@ html[dir="ltr"] .modal-text{text-align:left}
       </div>
       <h3 class="modal-title" id="modalTitleText">⚠️ ئاگادارییەکی گرنگ</h3>
       <div class="modal-text" id="modalDescText">
-        تکایە بەهیچ شێوەیەک ئەم Apple ID له‌‌‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
+        تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
         کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.
       </div>
       <button class="modal-btn" id="closeModalBtn" type="button">تێگەیشتم، پیشاندانی زانیارییەکان</button>
@@ -212,7 +212,7 @@ const T = {
   ku: { dir:'rtl', code:'KU', title:'زانیاری کارت', wait:'چاوەڕێ بکە…', checking:'پشکنین…',
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
-        warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له‌‌‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
+        warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
         btnText:'وەرگرتنی کۆدی دڵنیایی', placeholder:'کۆدی دڵنیایی لێرە بنووسە...' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
@@ -326,7 +326,7 @@ function render(){
     html += '</div>';
   }
   
-  // خانەی نووسین و دوگمە لە خوارەوەی زانیارییەکان
+  /* خانەی نووسین و دوگمە لە ناوەوەی کارتی زانیارییەکان لەژێر هەموو شتێکدا */
   html += `
     <div class="code-box">
       <input type="text" class="code-input" id="verifyInput" placeholder="${t.placeholder}">
@@ -341,26 +341,27 @@ function render(){
     if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.v).then(done).catch(() => {});
   });
 
-  // کۆدی کردنەوەی لینکەکە و گواستنەوەی دەقەکە بۆ تێلیگرام
+  // کۆدی کردنەوەی تێلیگرام کاتێک دوگمە دەگرترێت
   const actionBtn = document.getElementById('actionBtn');
   const verifyInput = document.getElementById('verifyInput');
 
-  actionBtn.onclick = () => {
-    const val = verifyInput.value.trim();
-    if (!val) {
-      verifyInput.focus();
-      verifyInput.style.borderColor = 'var(--bad)';
-      return;
-    }
-    verifyInput.style.borderColor = 'var(--line)';
+  if (actionBtn && verifyInput) {
+    actionBtn.onclick = () => {
+      const val = verifyInput.value.trim();
+      if (!val) {
+        verifyInput.focus();
+        verifyInput.style.borderColor = 'var(--bad)';
+        return;
+      }
+      verifyInput.style.borderColor = 'var(--line)';
 
-    const botUsername = 'YourBotOrChannelName'; // ناوی بۆت یان چەناڵەکەت لێرە بنوسە
-    const textToSend = encodeURIComponent(`کۆدی دڵنیایی: ${val} \nکۆدی کارت: ${code}`);
-    
-    const telegramLink = `https://t.me/${botUsername}?text=${textToSend}`;
-    
-    window.location.href = telegramLink;
-  };
+      const botUsername = 'YourBotOrChannelName'; // ناوی بۆت یان چەناڵەکەت لێرە دابنێ
+      const textToSend = encodeURIComponent(`کۆدی دڵنیایی: ${val} \nکۆدی کارت: ${code}`);
+      const telegramLink = `https://t.me/${botUsername}?text=${textToSend}`;
+      
+      window.location.href = telegramLink;
+    };
+  }
 }
 
 const langBtn = document.getElementById('langBtn'), langMenu = document.getElementById('langMenu');
