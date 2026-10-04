@@ -93,9 +93,14 @@ html[dir="ltr"] .modal-text{text-align:left}
 .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
 .item .ic{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--blue-light);color:var(--blue)}
 .item .ic svg{width:18px;height:18px}
-.tx{display:grid;min-width:0}
+.tx{display:grid;min-width:0;width:100%}
 .item dt{font-size:.72rem;color:var(--muted)}
 .item dd{margin:0;font-size:1.05rem;font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-align:start}
+
+/* ستایلی بەستەر یان لینکی کراوە */
+.link-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--blue-light);color:var(--blue);border:1px solid rgba(0,81,255,.2);padding:12px;border-radius:12px;font-weight:800;font-size:.9rem;text-decoration:none;transition:all .2s;margin-top:4px}
+.link-btn:hover{background:var(--blue);color:#fff}
+.link-btn svg{width:18px;height:18px}
 
 .vault{border-radius:16px;padding:14px;display:grid;gap:10px;background:linear-gradient(135deg,rgba(0,81,255,.04),rgba(0,81,255,.01));border:1px solid rgba(0,81,255,.15)}
 .vault-t{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.85rem;color:var(--blue)}
@@ -213,17 +218,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        btnText:'وەرگرتنی کۆدی دڵنیایی', placeholder:'کۆدی دڵنیایی لێرە بنووسە...' },
+        btnText:'وەرگرتنی کۆدی دڵنیایی', placeholder:'کۆدی دڵنیایی لێرە بنووسە...', linkBtnText:'کردنەوەی بەستەری وەرگرتنی کۆد' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        btnText:'استلام رمز التحقق', placeholder:'اكتب رمز التحقق هنا...' },
+        btnText:'استلام رمز التحقق', placeholder:'اكتب رمز التحقق هنا...', linkBtnText:'فتح رابط استلام الرمز' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠️ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        btnText:'Get Verification Code', placeholder:'Type verification code here...' }
+        btnText:'Get Verification Code', placeholder:'Type verification code here...', linkBtnText:'Open Code Verification Link' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -308,8 +313,24 @@ function render(){
     html += '<dl class="list">';
     main.forEach((i, n) => {
       const h = pickHeader(d.headers[i]);
-      html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
-            (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+      const val = String(d.values[i] || '').trim();
+      
+      // پشکنین بۆ ئەوەی بزانین ئایا ئەم خانەیە لینکە یان نا
+      if (val.startsWith('http://') || val.startsWith('https://')) {
+        html += `<div class="item">
+          <span class="ic">${ICONS[n]}</span>
+          <div class="tx">
+            ${h ? '<dt>' + esc(h) + '</dt>' : ''}
+            <a href="${esc(val)}" target="_blank" class="link-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>${t.linkBtnText}</span>
+            </a>
+          </div>
+        </div>`;
+      } else {
+        html += '<div class="item"><span class="ic">' + ICONS[n] + '</span><div class="tx">' +
+              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+      }
     });
     html += '</dl>';
   }
