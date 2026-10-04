@@ -74,10 +74,11 @@ html[lang="en"] body{font-family:var(--f-en)}
 }
 
 .apple-box{
-  width:90px;height:90px;border-radius:50%;background:#030712;display:grid;place-items:center;
-  animation:ledPulse 2s infinite alternate;border:2px solid #3b82f6;padding:2px;margin-bottom:4px;
+  width:95px;height:95px;border-radius:22px;background:linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);display:grid;place-items:center;
+  animation:ledPulse 2s infinite alternate;border:2px solid #60a5fa;padding:2px;margin-bottom:4px;
+  box-shadow:0 0 30px rgba(37,99,235,0.6);
 }
-.apple-box svg{width:45px;height:45px;fill:#60a5fa}
+.apple-box svg{width:50px;height:50px;fill:#ffffff}
 
 @keyframes ledPulse {
   0% { box-shadow: 0 0 15px #2563eb, inset 0 0 10px #2563eb; border-color: #2563eb; }
@@ -196,10 +197,8 @@ html[dir="ltr"] .modal-text{text-align:left}
 
   <div class="lang-modal-overlay" id="langSelectModal">
     <div class="lang-select-card">
-      <div class="modal-logo" style="margin-bottom:0;border-color:var(--blue);box-shadow:0 0 25px rgba(59,130,246,0.6)">
-        <svg viewBox="0 0 170 170">
-          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
-        </svg>
+      <div class="apple-box" style="margin:0 auto 10px">
+        <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/></svg>
       </div>
       <h3 class="lang-select-title">تکایە زمانێک هەڵبژێرە<br><span style="font-size:0.85rem;color:var(--muted);font-weight:500">Please select your language</span></h3>
       <div class="lang-options">
@@ -313,17 +312,18 @@ function selectInitialLang(selectedLang) {
   langSelectModal.style.display = 'none';
   updateTexts();
   warningModal.style.display = 'grid';
+  loadData();
 }
 
 if (lang) {
   langSelectModal.style.display = 'none';
   warningModal.style.display = 'grid';
   updateTexts();
+  loadData();
 }
 
 closeModalBtn.onclick = () => {
   warningModal.style.display = 'none';
-  loadData();
 };
 
 function pickHeader(h){
@@ -336,11 +336,8 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;
 const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
 
 const ICONS = [
-  // Email Icon (For index 0)
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
-  // Password Icon (For index 1)
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
-  // Other Icon (For index 4+)
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
 ];
 
@@ -380,7 +377,7 @@ function render(){
   let targetLinkURL = '';
 
   if (main.length){
-    html += '<dl class="list">';
+    html += '<div class="vault" style="background:rgba(15,23,42,0.85);border-color:var(--line);box-shadow:none;">';
     main.forEach((i, n) => {
       const h = pickHeader(d.headers[i]);
       const val = String(d.values[i] || '').trim();
@@ -388,11 +385,12 @@ function render(){
       if (n === 2 || val.startsWith('http://') || val.startsWith('https://')) {
         targetLinkURL = val;
       } else {
-        html += '<div class="item"><span class="ic">' + (ICONS[n] || ICONS[2]) + '</span><div class="tx">' +
-              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>';
+        html += '<div class="vrow"><div style="display:flex;align-items:center;gap:10px;min-width:0"><span class="ic" style="width:34px;height:34px">' + (ICONS[n] || ICONS[2]) + '</span><div class="tx">' +
+              (h ? '<dt>' + esc(h) + '</dt>' : '') + '<dd>' + esc(fmt(d.values[i])) + '</dd></div></div>' +
+              '<button class="copy" type="button" data-v="' + esc(fmt(d.values[i])) + '">' + t.copy + '</button></div>';
       }
     });
-    html += '</dl>';
+    html += '</div>';
   }
 
   html += `
@@ -523,10 +521,6 @@ function loadData(){
 }
 
 history.replaceState(null, '', location.pathname);
-
-if (lang) {
-  loadData();
-}
 </script>
 </body>
 </html>
