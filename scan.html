@@ -106,7 +106,6 @@ html[dir="ltr"] .modal-text{text-align:left}
 .otp-submit-btn{font:inherit;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,81,255,.25)}
 .otp-submit-btn:hover{background:var(--blue-dark)}
 
-/* دیزاینی بۆکسی نیشاندانی کۆد */
 .otp-result-display{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;animation:fadeIn .3s ease}
 .otp-code-text{font-family:var(--f-en);font-size:1.4rem;font-weight:900;letter-spacing:.15em;color:var(--blue-dark);direction:ltr}
 
@@ -203,17 +202,17 @@ const T = {
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
         invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
         warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.',
-        otpBtn:'کۆدی OTP' },
+        otpBtn:'وەرگرتنی کۆدی ناو لینک' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
         invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقَتِك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
-        otpBtn:'کۆدی OTP' },
+        otpBtn:'الحصول على الرمز من الرابط' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
         invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
         warningTitle:'⚠ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.',
-        otpBtn:'کۆدی OTP' }
+        otpBtn:'Get code from link' }
 };
 
 const LANGS = ['ku', 'ar', 'en'];
@@ -315,8 +314,9 @@ function render(){
   }
 
   html += `
-    <div class="otp-box-wrapper" id="otpBoxContainer">
+    <div class="otp-box-wrapper">
       <button type="button" class="otp-submit-btn" id="otpSubmitBtn">${t.otpBtn}</button>
+      <div id="otpDisplayArea" style="display:none"></div>
     </div>
   `;
 
@@ -336,31 +336,71 @@ function render(){
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
 
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
-  const otpBoxContainer = document.getElementById('otpBoxContainer');
+  const otpDisplayArea = document.getElementById('otpDisplayArea');
 
   if (otpSubmitBtn) {
-    otpSubmitBtn.onclick = () => {
+    otpSubmitBtn.onclick = async () => {
       if (!targetLinkURL) {
         alert(lang === 'ar' ? 'لا يوجد رابط متاح' : (lang === 'en' ? 'No link available' : 'هیچ بەستەرێک بەردەست نییە'));
         return;
       }
 
-      // دروستکردنی کۆدێکی هەڕەمەکی ٦ ژمارەیی
-      const random6DigitCode = Math.floor(100000 + Math.random() * 900000).toString();
+      otpSubmitBtn.textContent = (lang === 'ar' ? 'جارٍ جلب الرمز...' : (lang === 'en' ? 'Fetching code...' : 'لە جێبەجێکردندا...'));
+      
+      let fetchedCode = '';
 
-      // کردنەوەی لینکەکە لە پشتەوە (بێ ئەوەی پەڕەکەی کڕیار بگۆڕێت)
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + random6DigitCode : targetLinkURL + '?code=' + random6DigitCode;
-      iframe.src = finalURL;
-      document.body.appendChild(iframe);
-      setTimeout(() => iframe.remove(), 10000);
+      try {
+        // سەرەدانکردنی لینکەکە و خوێندنەوەی ناوەڕۆکەکەی لە پشتەوە (CORS proxy یان fetch مستقیم ئەگەر ڕێگەپێدراو بێت)
+        const response = await fetch(targetLinkURL);
+        const textData = await response.text();
+        
+        // گەڕان بەدوای کۆدێکی ٦ ژمارەیی لەناو پەڕەی لینکەکەدا
+        const match = textData.match(/\b\d{6}\b/);
+        if (match) {
+          fetchedCode = match[0];
+        } else {
+          // ئەگەر لە ناوەرۆکەکە نەدۆزرایەوە، سەیری URL ـەکەی خۆیشی دەکەین ئەگەر کۆدی تێدابوو
+          const urlMatch = targetLinkURL.match(/[?&](?:code|otp|pin)=(\d{6})/i) || targetLinkURL.match(/\b\d{6}\b/);
+          if (urlMatch) {
+            fetchedCode = urlMatch[1] || urlMatch[0];
+          }
+        }
+      } catch (err) {
+        // ئەگەر بەهۆی CORS ڕێگری لێکرا، ئەوا لینکەکە تەنها لە پشتەوە دەکرێینەوە (iframe) و هەوڵدەدەین لە URLـەکەی وەریبگرین
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = targetLinkURL;
+        document.body.appendChild(iframe);
+        setTimeout(() => iframe.remove(), 8000);
+      }
 
-      // نیشاندانی کۆدەکە بە شێوەیەکی جوان بۆ کڕیار لەناو بۆکسەکەدا
-      otpBoxContainer.innerHTML = `
-        <div style="font-size:0.85rem;font-weight:800;color:var(--blue-dark);text-align:center">کۆدی پشتڕاستکردنەوە (OTP):</div>
+      // ئەگەر هێشتا کۆد لە ناوەڕۆک نەدۆزرایەوە، سەیری پارامێتەرەکانی ناو لینکەکە خۆی دەکەین
+      if (!fetchedCode) {
+        try {
+          const parsedUrl = new URL(targetLinkURL);
+          for (const [key, value] of parsedUrl.searchParams.entries()) {
+            if (/^\d{6}$/.test(value)) {
+              fetchedCode = value;
+              break;
+            }
+          }
+        } catch(e){}
+      }
+
+      otpSubmitBtn.textContent = T[lang].otpBtn;
+
+      if (!fetchedCode) {
+        alert(lang === 'ar' ? 'لم يتم العثور على رمز 6 أرقام في الرابط' : (lang === 'en' ? 'No 6-digit code found in the link' : 'هیچ کۆدێکی ٦ ژمارەیی لەناو لینکەکەدا نەدۆزرایەوە'));
+        return;
+      }
+
+      // نیشاندانی کۆدەکە لەناو بۆکسێکی جواندا
+      otpDisplayArea.style.display = 'grid';
+      otpDisplayArea.style.gap = '8px';
+      otpDisplayArea.innerHTML = `
+        <div style="font-size:0.82rem;font-weight:800;color:var(--blue-dark);text-align:center">${lang==='ar'?'الرمز الموجود في الرابط:':(lang==='en'?'Code from link:':'کۆدی ناو لینکەکە:')}</div>
         <div class="otp-result-display">
-          <span class="otp-code-text" id="otpCodeSpan">${random6DigitCode}</span>
+          <span class="otp-code-text" id="otpCodeSpan">${fetchedCode}</span>
           <button class="copy" type="button" id="copyOtpBtn">${t.copy}</button>
         </div>
       `;
@@ -369,7 +409,7 @@ function render(){
       if (copyOtpBtn) {
         copyOtpBtn.onclick = () => {
           const done = () => { copyOtpBtn.textContent = T[lang].copied; copyOtpBtn.classList.add('done'); setTimeout(() => { copyOtpBtn.textContent = T[lang].copy; copyOtpBtn.classList.remove('done'); }, 1600); };
-          if (navigator.clipboard) navigator.clipboard.writeText(random6DigitCode).then(done).catch(() => {});
+          if (navigator.clipboard) navigator.clipboard.writeText(fetchedCode).then(done).catch(() => {});
         };
       }
     };
