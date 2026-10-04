@@ -62,7 +62,15 @@ html[lang="en"] body{font-family:var(--f-en)}
 .state.bad{color:var(--bad);background:rgba(239,68,68,.1)} .state.bad i{background:var(--bad)}
 .stamp{font-family:var(--f-en);font-size:.72rem;color:var(--muted)}
 
-/* پەنجەرەی ئاگاداری (Modal) کە دەستبەجێ لە سەرەتادا دەردەکەوێت */
+/* پەنجەرەی هەڵبژاردنی زمان لە سەرەتادا */
+.lang-modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.75);backdrop-filter:blur(8px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
+.lang-select-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
+.lang-select-title{font-weight:900;font-size:1.15rem;color:var(--blue-dark);margin:0}
+.lang-options{display:grid;gap:10px}
+.lang-option-btn{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:14px;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
+.lang-option-btn:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue)}
+
+/* پەنجەرەی ئاگاداری (Warning Modal) */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,33,99,.65);backdrop-filter:blur(8px);z-index:999;display:grid;place-items:center;padding:20px;animation:fadeIn .25s ease}
 .modal-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px 20px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);display:grid;gap:16px;animation:scaleUp .25s ease}
 .modal-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(145deg,#0051FF,#0A3663);display:grid;place-items:center;margin:0 auto;box-shadow:0 10px 22px rgba(0,81,255,.3)}
@@ -110,16 +118,33 @@ html[dir="ltr"] .modal-text{text-align:left}
 </head>
 <body>
 
-  <!-- پەنجەرەی ئاگاداری و لۆگۆکە کە ڕاستەوخۆ لە کاتی کردنەوەی پەڕەکەدا دەردەکەوێت -->
-  <div class="modal-overlay" id="warningModal">
+  <!-- پەنجەرەی یەکەم: هەڵبژاردنی زمان پێش هەر شتێک -->
+  <div class="lang-modal-overlay" id="langSelectModal">
+    <div class="lang-select-card">
+      <div class="modal-logo" style="margin-bottom:0">
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
+        </svg>
+      </div>
+      <h3 class="lang-select-title">تکایە زمانێک هەڵبژێرە<br><span style="font-size:0.85rem;color:var(--muted);font-weight:500">Please select your language</span></h3>
+      <div class="lang-options">
+        <button class="lang-option-btn" type="button" onclick="selectInitialLang('ku')">کوردی (Kurdish)</button>
+        <button class="lang-option-btn" type="button" onclick="selectInitialLang('ar')">العربية (Arabic)</button>
+        <button class="lang-option-btn" type="button" onclick="selectInitialLang('en')">English</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- پەنجەرەی دووەم: ئاگادارییە گرنگەکە (دوای هەڵبژاردنی زمان دەردەکەوێت) -->
+  <div class="modal-overlay" id="warningModal" style="display:none">
     <div class="modal-card">
       <div class="modal-logo">
         <svg viewBox="0 0 170 170">
           <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.05-2.6-6.88-7.15-11.48-13.65-6.19-8.71-11.05-18.27-14.59-28.67-3.53-10.4-5.3-20.35-5.3-29.86 0-14.37 3.73-25.7 11.19-34 7.46-8.3 16.63-12.51 27.51-12.62 4.9 0 10.03 1.25 15.39 3.75 5.36 2.5 8.93 3.75 10.72 3.75 1.74 0 5.48-1.32 11.22-3.95 5.75-2.64 10.85-3.86 15.32-3.65 11.23.44 20.37 4.7 27.42 12.78-10.15 6.22-15.11 15.37-14.88 27.46.22 9.5 3.97 17.29 11.25 23.37 7.29 6.08 16.03 9.3 26.22 9.66-2.07 6.43-4.8 13.56-8.19 21.39z"/>
         </svg>
       </div>
-      <h3 class="modal-title">⚠️ ئاگادارییەکی گرنگ</h3>
-      <div class="modal-text">
+      <h3 class="modal-title" id="modalTitleText">⚠️ ئاگادارییەکی گرنگ</h3>
+      <div class="modal-text" id="modalDescText">
         تکایە بەهیچ شێوەیەک ئەم Apple ID له‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>
         کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.
       </div>
@@ -181,34 +206,57 @@ const API = 'https://script.google.com/macros/s/AKfycbwXT21qj1UyxWQ_Yf80Ae3iNXEg
 const T = {
   ku: { dir:'rtl', code:'KU', title:'زانیاری کارت', wait:'چاوەڕێ بکە…', checking:'پشکنین…',
         scanned:'سکان کرا', again:'کارتی ناسراو', vault:'زانیاری تایبەت', copy:'کۆپی', copied:'کۆپی کرا ✓',
-        invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان' },
+        invalid:'ئەم QR کۆدە دروست نییە', empty:'هیچ زانیارییەکی نوێ نەماوە', net:'پەیوەندی نەکرا. ئینتەرنێت بپشکنە.', error:'هەڵە', thanks:'سوپاس بۆ متمانەکەت', modalBtn:'تێگەیشتم، پیشاندانی زانیارییەکان',
+        warningTitle:'⚠️ ئاگادارییەکی گرنگ', warningText:'تکایە بەهیچ شێوەیەک ئەم Apple ID له‌‌ Settings ی موبایلەکەت داخل مەکە! تەنها لە App Store داخل بکە.<br><br>کاتی داخلکردنی، تکایە ڕاستەوخۆ بیخەرە سەر ژمارەی موبایلی خۆت.' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
-        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات' },
+        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
+        warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
         scanned:'Scanned', again:'Verified card', vault:'Private details', copy:'Copy', copied:'Copied ✓',
-        invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details' }
+        invalid:'This QR code is not valid', empty:'No new information is available', net:'Couldn’t connect. Check your internet.', error:'Error', thanks:'Thank you for your trust', modalBtn:'Got it, show details',
+        warningTitle:'⚠️ Important Warning', warningText:'Please do NOT sign in with this Apple ID in your phone Settings! Sign in via App Store only.<br><br>When signing in, please use your own mobile phone number directly.' }
 };
+
 const LANGS = ['ku', 'ar', 'en'];
 const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { localStorage.setItem(k, v); } catch(e){} } };
-let lang = store.get('haroon_lang') || 'ku';
+
+let lang = store.get('haroon_lang') || null;
 let state = { kind: 'loading' };
+
+const code = (new URLSearchParams(location.search).get('c') || '').trim();
+const box = document.getElementById('box');
+const langSelectModal = document.getElementById('langSelectModal');
+const warningModal = document.getElementById('warningModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+// کاتێک بەکارهێنەر لە سەرەتادا زمانێک هەڵدەبژێرێت
+function selectInitialLang(selectedLang) {
+  lang = selectedLang;
+  store.set('haroon_lang', lang);
+  langSelectModal.style.display = 'none'; // داخستنی پەنجەرەی زمان
+  updateTexts();
+  warningModal.style.display = 'grid'; // کردنەوەی پەنجەرەی ئاگاداری
+}
+
+// ئەگەر پێشتر زمانەکە هەڵبژێردرابێت، راستەوخۆ پەنجەرەی زمان بپەڕێنە و ئاگاداری پیشان بدە
+if (lang) {
+  langSelectModal.style.display = 'none';
+  warningModal.style.display = 'grid';
+  updateTexts();
+}
+
+// داخستنی پەنجەرەی ئاگاداری و بارکردنی زانیارییەکان
+closeModalBtn.onclick = () => {
+  warningModal.style.display = 'none';
+  loadData();
+};
 
 function pickHeader(h){
   const parts = String(h || '').split('|').map(s => s.trim());
   if (parts.length < 2) return parts[0] || '';
   return parts[LANGS.indexOf(lang)] || parts[0];
 }
-
-const code = (new URLSearchParams(location.search).get('c') || '').trim();
-const box = document.getElementById('box');
-const warningModal = document.getElementById('warningModal');
-const closeModalBtn = document.getElementById('closeModalBtn');
-
-// داخستنی پەنجەرەی ئاگاداری و پیشاندانی زانیارییەکان لە کاتی کلیککردن
-closeModalBtn.onclick = () => {
-  warningModal.style.display = 'none';
-};
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) ? v.slice(0, 10) : v;
@@ -218,14 +266,21 @@ const ICONS = [
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg>'
 ];
 
-function render(){
-  const t = T[lang];
-  document.documentElement.lang = lang === 'ku' ? 'ckb' : lang;
+function updateTexts() {
+  const t = T[lang || 'ku'];
+  document.documentElement.lang = lang === 'ku' ? 'ckb' : (lang || 'ku');
   document.documentElement.dir = t.dir;
   document.getElementById('langCode').textContent = t.code;
   closeModalBtn.textContent = t.modalBtn;
+  document.getElementById('modalTitleText').textContent = t.warningTitle;
+  document.getElementById('modalDescText').innerHTML = t.warningText;
   document.querySelectorAll('[data-t]').forEach(el => el.textContent = t[el.dataset.t]);
   document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
+}
+
+function render(){
+  const t = T[lang || 'ku'];
+  updateTexts();
   const st = document.getElementById('state'), stx = document.getElementById('stateTx');
 
   if (state.kind === 'loading') {
@@ -279,7 +334,7 @@ const langBtn = document.getElementById('langBtn'), langMenu = document.getEleme
 function toggleMenu(open){ langMenu.hidden = !open; langBtn.setAttribute('aria-expanded', String(open)); }
 langBtn.onclick = e => { e.stopPropagation(); toggleMenu(langMenu.hidden); };
 langMenu.querySelectorAll('[data-lang]').forEach(b => b.onclick = () => {
-  lang = b.dataset.lang; store.set('haroon_lang', lang); toggleMenu(false); render();
+  lang = b.dataset.lang; store.set('haroon_lang', lang); toggleMenu(false); render(); loadData();
 });
 document.addEventListener('click', () => toggleMenu(false));
 
@@ -301,7 +356,11 @@ function loadData(){
 }
 
 history.replaceState(null, '', location.pathname);
-loadData();
+
+// ئەگەر زمان پێشتر هەڵبژێردرابێت، ڕاستەوخۆ داتاکە بهێنە کاتێک ئاگادارییەکە داخرا
+if (lang) {
+  loadData();
+}
 </script>
 </body>
 </html>
