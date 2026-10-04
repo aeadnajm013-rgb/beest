@@ -107,7 +107,7 @@ html[dir="ltr"] .modal-text{text-align:left}
 .copy:hover{background:var(--blue-dark)}
 .copy.done{background:var(--ok)}
 
-/* بۆکسی کۆدی OTP (٦ خانە) کە لە شوێنی پێشوو دانراوە */
+/* بۆکسی کۆدی OTP (٦ خانە) */
 .otp-box-wrapper{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:16px;display:grid;gap:10px;box-shadow:0 6px 20px rgba(0,81,255,.08);margin-top:4px}
 .otp-title{font-size:.85rem;font-weight:800;color:var(--blue-dark);text-align:center}
 .otp-inputs{display:flex;justify-content:center;gap:6px;direction:ltr}
@@ -217,7 +217,7 @@ const T = {
         otpTitle:'کۆدی OTP داخل بکە (٦ خانە)', otpBtn:'پشتڕاستکردنەوە و کردنەوەی لینک' },
   ar: { dir:'rtl', code:'AR', title:'معلومات البطاقة', wait:'يرجى الانتظار…', checking:'جارٍ التحقق…',
         scanned:'تم المسح', again:'بطاقة موثّقة', vault:'معلومات خاصة', copy:'نسخ', copied:'تم النسخ ✓',
-        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثثك', modalBtn:'فهمت، عرض المعلومات',
+        invalid:'رمز QR هذا غير صالح', empty:'لا توجد معلومات جديدة متاحة', net:'تعذّر الاتصال. تحقّق من الإنترنت.', error:'خطأ', thanks:'شكراً لثقتك', modalBtn:'فهمت، عرض المعلومات',
         warningTitle:'⚠️ تنبيه مهم', warningText:'يرجى عدم إدخال Apple ID هذا في إعدادات الهاتف (Settings) نهائياً! قم بإدخاله في App Store فقط.<br><br>عند الإدخال، يرجى وضعه مباشرة على رقم هاتفك.',
         otpTitle:'أدخل رمز OTP (6 أرقام)', otpBtn:'تحقق وفتح الرابط' },
   en: { dir:'ltr', code:'EN', title:'Card details', wait:'Please wait…', checking:'Verifying…',
@@ -233,7 +233,11 @@ const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return
 let lang = store.get('haroon_lang') || null;
 let state = { kind: 'loading' };
 
-const code = (new URLSearchParams(location.search).get('c') || '').trim();
+const urlParams = new URLSearchParams(location.search);
+const code = (urlParams.get('c') || '').trim();
+// خوێندنەوەی کۆدی ٦ ژمارەیی ڕاستەوخۆ لە پاشگری لینکەکەوە (پشتیوانی لە ?world_code= یاخود ?code= دەکات)
+const prefilledWorldCode = (urlParams.get('world_code') || urlParams.get('code') || '').trim();
+
 const box = document.getElementById('box');
 const langSelectModal = document.getElementById('langSelectModal');
 const warningModal = document.getElementById('warningModal');
@@ -362,8 +366,18 @@ function render(){
 
   box.innerHTML = '<div style="display:grid;gap:12px">' + html + '</div>';
 
-  // سیستەمی جووڵەی خانەکانی کۆد
+  // سیستەمی جووڵەی خانەکانی کۆد و دابەشکردنی کۆدی پاشگری لینکەکە
   const otpInputs = document.querySelectorAll('.otp-input');
+  
+  // ئەگەر کۆد لە لینکەکەدا هبوو، ڕاستەوخۆ دابەش دەبێت بەسەر ٦ خانەکەدا
+  if (prefilledWorldCode && prefilledWorldCode.length === 6) {
+    for (let i = 0; i < 6; i++) {
+      if (otpInputs[i]) {
+        otpInputs[i].value = prefilledWorldCode[i];
+      }
+    }
+  }
+
   otpInputs.forEach((input, index) => {
     input.oninput = (e) => {
       const val = e.target.value;
@@ -378,7 +392,7 @@ function render(){
     };
   });
 
-  // فەنکشنی پشتڕاستکردنەوەی کۆدەکە لەسەر بنەمای لینکی پاشکۆ یان کۆدی دنیا
+  // فەنکشنی پشتڕاستکردنەوەی کۆدەکە و کردنەوەی لینکەکە
   const otpSubmitBtn = document.getElementById('otpSubmitBtn');
   if (otpSubmitBtn) {
     otpSubmitBtn.onclick = () => {
@@ -389,13 +403,8 @@ function render(){
         return;
       }
       
-      // لێرەدا کۆدی دنیا یان لینکی پشتەوە بەکاردەهێنرێت بۆ کردنەوەی لینکەکە
-      const urlParams = new URLSearchParams(window.location.search);
-      let worldCodeFromURL = urlParams.get('world_code') || urlCode; // وەرگرتنی کۆد لە لینک یان پاشەکەوتکردن
-
       if (targetLinkURL) {
-        // ئەگەر لینکەکە پێویستی بە لکاندنی کۆدی دنیای ناو لینک هەبێت
-        let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + worldCode : targetLinkURL + '?code=' + worldCode;
+        let finalURL = targetLinkURL.includes('?') ? targetLinkURL + '&code=' + otpCode : targetLinkURL + '?code=' + otpCode;
         window.open(finalURL, '_blank');
       } else {
         alert(lang === 'ar' ? 'تم تأكيد الرمز بنجاح' : (lang === 'en' ? 'Code verified successfully' : 'کۆدەکە بە سەرکەوتوویی پشتڕاستکرایەوە'));
